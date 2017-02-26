@@ -12,7 +12,25 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.github.gfsclock.gfstimeclock.OptionsScreen">
 
+    <Button
+        android:text="@string/clock_in_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="clockIn"
+        android:id="@+id/ClockInButton"
+        tools:layout_alignParentTop="false"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
 
+    <Button
+        android:text="@string/break_out_button"
+        android:onClick="breakOut"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/BreakOutButton"
+        android:layout_alignBaseline="@+id/BreakInButton"
+        android:layout_alignBottom="@+id/BreakInButton"
+        android:layout_alignStart="@+id/ClockOutButton" />
     <Button
         android:text="@string/break_in_button"
         android:onClick="breakIn"
@@ -43,15 +61,7 @@
         android:layout_marginStart="113dp"
         android:id="@+id/ClockOutButton" />
 
-    <Button
-        android:text="@string/break_out_button"
-        android:onClick="breakOut"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/BreakOutButton"
-        android:layout_alignBaseline="@+id/BreakInButton"
-        android:layout_alignBottom="@+id/BreakInButton"
-        android:layout_alignStart="@+id/ClockOutButton" />
+
 
     <Button
         android:text="@string/lunch_out_button"
@@ -62,15 +72,7 @@
         android:layout_alignStart="@+id/BreakOutButton"
         android:id="@+id/LunchOutButton" />
 
-    <Button
-        android:text="@string/clock_in_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="clockIn"
-        android:id="@+id/ClockInButton"
-        tools:layout_alignParentTop="false"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
+
 
     <Button
         android:text="@string/change_job_button"

@@ -17,6 +17,11 @@ import java.util.Date;
 
 public class OptionsScreen extends AppCompatActivity {
 
+    /**
+     * Entry point to the OptionsScreen activity, handles result from barcode intent and
+     * makes initial api call to get employee punches.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,10 +40,14 @@ public class OptionsScreen extends AppCompatActivity {
     private ArrayList<PunchModel> punches;
     private TextView employeeIdTextView;
 
-    // TODO make formatting betterer
+    /**
+     * Shows alert dialog with punch history on button press.
+     * @param view
+     */
     public void showPunchHistoryDialog(View view){
         AlertDialog.Builder builder = new AlertDialog.Builder(OptionsScreen.this);
         builder.setTitle(getString(R.string.punch_history));
+        // TODO filter history for only last 3 days
         String punchHistory = "";
         for (int i = 0; i < punches.size(); i++) {
             punchHistory += punches.get(i).getDocket()+ " " + punches.get(i).getTimeStamp() + "\n";
@@ -55,42 +64,72 @@ public class OptionsScreen extends AppCompatActivity {
         dialog.show();
     }
 
+    /**
+     * Clocks employee in on button press.
+     * @param view
+     */
     public void clockIn(View view){
         mapper.punch(employeeID, "F1", new Date());
         backToScanBadge();
     }
 
+    /**
+     * Clocks employee out for break on button press.
+     * @param view
+     */
     public void breakOut(View view){
         mapper.punch(employeeID, "F2", new Date());
         backToScanBadge();
     }
 
+    /**
+     * Clocks employee out for lunch on button press.
+     * @param view
+     */
     public void lunchOut(View view){
         mapper.punch(employeeID, "F3", new Date());
         backToScanBadge();
     }
 
+    /**
+     * Clocks employee out for the day on button press.
+     * @param view
+     */
     public void clockOut(View view){
         mapper.punch(employeeID, "F5", new Date());
         backToScanBadge();
     }
 
+    /**
+     * Clocks employee in from break on button press.
+     * @param view
+     */
     public void breakIn(View view) {
         mapper.punch(employeeID, "F6", new Date());
         backToScanBadge();
     }
 
+    /**
+     * Clocks employee in from lunch on button press.
+     * @param view
+     */
     public void lunchIn(View view){
         mapper.punch(employeeID, "F7", new Date());
         backToScanBadge();
     }
 
+    /**
+     * Processes job change on button press.
+     * @param view
+     */
     public void changeJob(View view){
         backToScanBadge();
-        // TODO disabled for now
+        // TODO disabled for now need to get clarification on API functionality
     }
 
-    // Intent to go back
+    /**
+     * Method called after any activity to return to ScanBadge activity.
+     */
     public void backToScanBadge(){
         Intent backToScanBadge = new Intent(OptionsScreen.this, ScanBadge.class);
         OptionsScreen.this.startActivity(backToScanBadge);
