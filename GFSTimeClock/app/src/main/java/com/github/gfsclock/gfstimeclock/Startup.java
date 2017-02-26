@@ -8,6 +8,10 @@ import android.app.Application;
 
 import io.realm.Realm;
 
+/**
+ * Startup()
+ * This function initializes a new Realm instance.
+ */
 public class Startup extends Application{
     @Override
     public void onCreate(){

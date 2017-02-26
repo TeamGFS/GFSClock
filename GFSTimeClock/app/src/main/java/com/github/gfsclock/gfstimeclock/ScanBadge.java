@@ -22,16 +22,38 @@ public class ScanBadge extends AppCompatActivity {
         setContentView(R.layout.activity_scan_badge);
     }
 
+    /**
+     * The scanBadge1() is called when pressing the Scan badge button, the IntentIntegrator
+     * provides intent functionality of the zxing camera scanner module.
+     *
+     * @param view
+     */
     public void scanBadge1(View view){
         IntentIntegrator integrator = new IntentIntegrator(this);
         integrator.initiateScan();
     }
 
+
+    // TODO refactor this into menu overflow / inflator
+    /**
+     * The admin() method is called when passing intent to the admin configuration screen.
+     *
+     * @param view
+     */
     public void admin(View view){
         Intent adminScreen = new Intent(ScanBadge.this, AdminOptions.class);
         ScanBadge.this.startActivity(adminScreen);
     }
 
+
+    /**
+     * The onActivityResult function responds to intents that were started in the ScanBadge activity.
+     * This is called automatically from the result of the IntentIntegrator and can be matched to
+     * either a successful scan or a canceled scan.
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
@@ -54,6 +76,11 @@ public class ScanBadge extends AppCompatActivity {
             Toast.makeText(this, "something goofed", Toast.LENGTH_LONG).show();
         }
     }
+
+    /**
+     * The processScan() is called after a succesful scan is returned from the scanBadge1() method.
+     * This passes the contents of the scanned barcode to the OptionsScreen.
+     */
     public void processScan(){
         Intent optionsScreen = new Intent(ScanBadge.this, OptionsScreen.class);
         optionsScreen.putExtra("barcode", barcode);
