@@ -41,7 +41,7 @@ public class ScanBadge extends AppCompatActivity {
      * @param view
      */
     public void admin(View view){
-        Intent adminScreen = new Intent(ScanBadge.this, AdminOptions.class);
+        Intent adminScreen = new Intent(ScanBadge.this, Admin.class);
         ScanBadge.this.startActivity(adminScreen);
     }
 
@@ -79,10 +79,10 @@ public class ScanBadge extends AppCompatActivity {
 
     /**
      * The processScan() is called after a succesful scan is returned from the scanBadge1() method.
-     * This passes the contents of the scanned barcode to the OptionsScreen.
+     * This passes the contents of the scanned barcode to the ClockOptions.
      */
     public void processScan(){
-        Intent optionsScreen = new Intent(ScanBadge.this, OptionsScreen.class);
+        Intent optionsScreen = new Intent(ScanBadge.this, ClockOptions.class);
         optionsScreen.putExtra("barcode", barcode);
         ScanBadge.this.startActivity(optionsScreen);
     }

@@ -17,10 +17,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".OptionsScreen"
+        <activity android:name=".ClockOptions"
             android:screenOrientation="landscape">
         </activity>
-        <activity android:name=".AdminOptions"></activity>
+        <activity android:name=".Admin"></activity>
     </application>
 
 </manifest>

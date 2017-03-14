@@ -5,7 +5,7 @@
     android:id="@+id/activity_admin_options"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.github.gfsclock.gfstimeclock.AdminOptions">
+    tools:context="com.github.gfsclock.gfstimeclock.Admin">
 
     <EditText
         android:layout_width="wrap_content"

@@ -15,17 +15,17 @@ import com.github.gfsclock.apimapper.PunchModel;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class OptionsScreen extends AppCompatActivity {
+public class ClockOptions extends AppCompatActivity {
 
     /**
-     * Entry point to the OptionsScreen activity, handles result from barcode intent and
+     * Entry point to the ClockOptions activity, handles result from barcode intent and
      * makes initial api call to get employee punches.
      * @param savedInstanceState
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_options_screen);
+        setContentView(R.layout.activity_clock_options);
 
         Intent intent = getIntent();
         String id = intent.getStringExtra("barcode");
@@ -45,7 +45,7 @@ public class OptionsScreen extends AppCompatActivity {
      * @param view
      */
     public void showPunchHistoryDialog(View view){
-        AlertDialog.Builder builder = new AlertDialog.Builder(OptionsScreen.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(ClockOptions.this);
         builder.setTitle(getString(R.string.punch_history));
         // TODO filter history for only last 3 days
         String punchHistory = "";
@@ -131,7 +131,7 @@ public class OptionsScreen extends AppCompatActivity {
      * Method called after any activity to return to ScanBadge activity.
      */
     public void backToScanBadge(){
-        Intent backToScanBadge = new Intent(OptionsScreen.this, ScanBadge.class);
-        OptionsScreen.this.startActivity(backToScanBadge);
+        Intent backToScanBadge = new Intent(ClockOptions.this, ScanBadge.class);
+        ClockOptions.this.startActivity(backToScanBadge);
     }
 }
