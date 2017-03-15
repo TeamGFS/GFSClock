@@ -9,9 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
-import com.github.gfsclock.apimapper.APIMapperOffline;
-import com.github.gfsclock.apimapper.PunchModel;
-
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -36,7 +33,7 @@ public class ClockOptions extends AppCompatActivity {
     }
 
     private int employeeID = 0;
-    private APIMapperOffline mapper = APIMapperOffline.getInstance();
+    private APIMapper mapper = APIMapper.getInstance();
     private ArrayList<PunchModel> punches;
     private TextView employeeIdTextView;
 
