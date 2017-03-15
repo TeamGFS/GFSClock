@@ -14,4 +14,5 @@
     <string name="user_name">User name</string>
     <string name="admin">admin</string>
     <string name="password">Password</string>
+    <string name="server_address">server address</string>
 </resources>
