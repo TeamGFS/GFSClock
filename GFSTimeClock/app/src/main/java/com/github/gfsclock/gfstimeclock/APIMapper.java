@@ -1,5 +1,8 @@
 package com.github.gfsclock.gfstimeclock;
 
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -95,5 +98,19 @@ public class APIMapper {
 
     private void realmSetdown() {
         realm.close();
+    }
+
+    private String getAPIURLPreference() {
+        SharedPreferences appPref = PreferenceManager.getDefaultSharedPreferences(Startup.getContext());
+        return appPref.getString("serverAddress", "nil");
+    }
+    
+    // Stubs
+    private void checkConnection() {
+        // check for connection to API
+    }
+
+    private void checkAuth() {
+        // check to see if user is authorized
     }
 }
