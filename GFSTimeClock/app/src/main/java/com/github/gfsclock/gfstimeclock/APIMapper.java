@@ -1,4 +1,4 @@
-package com.github.gfsclock.apimapper;
+package com.github.gfsclock.gfstimeclock;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -9,17 +9,17 @@ import io.realm.RealmQuery;
 import io.realm.RealmResults;
 
 
-public class APIMapperOffline {
-    private static APIMapperOffline mInstance = null;
+public class APIMapper {
+    private static APIMapper mInstance = null;
     private Realm realm;
 
-    private APIMapperOffline() {};
+    private APIMapper() {};
 
-    public static APIMapperOffline getInstance() {
+    public static APIMapper getInstance() {
         if(mInstance == null) {
-            synchronized(APIMapperOffline.class) {
+            synchronized(APIMapper.class) {
                 if (mInstance == null) {
-                    mInstance = new APIMapperOffline();
+                    mInstance = new APIMapper();
                 }
             }
         }
