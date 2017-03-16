@@ -14,10 +14,12 @@ import android.widget.Toast;
 
 public class Admin extends AppCompatActivity {
 
+    private String serverAddress;
     private String username;
     private String password;
     private String clockId;
 
+    private EditText serverAddressField;
     private EditText usernameField;
     private EditText passwordField;
     private EditText clockIdField;
@@ -29,13 +31,16 @@ public class Admin extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin);
 
-        // Get Data from Shared Preferences
+        // Get Data from Shared Preferences - if not value present display hardcoded string / stub
         SharedPreferences settingStore = PreferenceManager.getDefaultSharedPreferences(Startup.getContext());
-        username = settingStore.getString("username", "");
-        password = settingStore.getString("password", "");
-        clockId = settingStore.getString("clockId", "");
+        serverAddress = settingStore.getString("serverAddress", String.valueOf(R.string.server_address));
+        username = settingStore.getString("username", String.valueOf(R.string.user_name));
+        password = settingStore.getString("password", String.valueOf(R.string.password));
+        clockId = settingStore.getString("clockId", String.valueOf(R.string.clock_id));
 
         // Load Text Fields, and populate them
+        serverAddressField = (EditText) findViewById(R.id.ServerAddress);
+        serverAddressField.setText(serverAddress, TextView.BufferType.EDITABLE);
         usernameField = (EditText) findViewById(R.id.Username);
         usernameField.setText(username, TextView.BufferType.EDITABLE);
         passwordField = (EditText) findViewById(R.id.Password);
@@ -64,10 +69,12 @@ public class Admin extends AppCompatActivity {
         SharedPreferences settingStore = PreferenceManager.getDefaultSharedPreferences(Startup.getContext());
         SharedPreferences.Editor settingEditor = settingStore.edit();
 
+        serverAddress = serverAddressField.getText().toString();
         username = usernameField.getText().toString();
         password = passwordField.getText().toString();
         clockId = clockIdField.getText().toString();
 
+        settingEditor.putString("serverAddress", serverAddress);
         settingEditor.putString("username", username);
         settingEditor.putString("password", password);
         settingEditor.putString("clockId", clockId);
