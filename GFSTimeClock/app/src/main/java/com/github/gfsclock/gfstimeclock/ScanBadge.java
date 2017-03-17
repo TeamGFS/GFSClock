@@ -41,8 +41,8 @@ public class ScanBadge extends AppCompatActivity {
      * @param view
      */
     public void admin(View view){
-        Intent adminScreen = new Intent(ScanBadge.this, Admin.class);
-        ScanBadge.this.startActivity(adminScreen);
+        Intent pinScreen = new Intent(ScanBadge.this, PinToAdmin.class);
+        ScanBadge.this.startActivity(pinScreen);
     }
 
 

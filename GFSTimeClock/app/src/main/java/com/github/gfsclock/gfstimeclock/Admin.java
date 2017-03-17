@@ -65,6 +65,8 @@ public class Admin extends AppCompatActivity {
     }
 
 
+
+
     public void saveButtonListener(View view) {
         SharedPreferences settingStore = PreferenceManager.getDefaultSharedPreferences(Startup.getContext());
         SharedPreferences.Editor settingEditor = settingStore.edit();
@@ -84,6 +86,7 @@ public class Admin extends AppCompatActivity {
         Toast.makeText(this, "Settings saved.", Toast.LENGTH_LONG).show();
 
     }
+
 
     public void toScanBadge(View view) {
         Intent next = new Intent (Admin.this, ScanBadge.class);
