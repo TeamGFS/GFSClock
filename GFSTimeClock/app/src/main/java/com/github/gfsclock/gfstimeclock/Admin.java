@@ -3,6 +3,7 @@ package com.github.gfsclock.gfstimeclock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Intent;
+import android.util.Log;
 import android.widget.Button;
 import android.view.View;
 
@@ -18,6 +19,13 @@ public class Admin extends AppCompatActivity {
                 toScanBadge(view);
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        Log.d("CDA", "onBackPressed Called");
+        Intent scanBadge = new Intent(Admin.this, ScanBadge.class);
+        startActivity(scanBadge);
     }
 
     public void toScanBadge(View view) {

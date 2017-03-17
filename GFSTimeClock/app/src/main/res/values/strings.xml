@@ -16,4 +16,7 @@
     <string name="password">Password</string>
     <string name="server_address">server address</string>
     <string name="admin_pin">Enter PIN</string>
+    <string name="incorrect_pin">incorrect pin, try again</string>
+    <string name="incorrect_pin_title">Incorrect PIN</string>
+
 </resources>
