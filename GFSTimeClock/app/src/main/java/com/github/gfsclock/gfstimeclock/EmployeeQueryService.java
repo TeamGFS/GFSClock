@@ -7,7 +7,7 @@ import retrofit2.http.Path;
 
 public interface EmployeeQueryService {
     @GET("/emps/rest/employee/{id}")
-    Call<EmployeeData> getData(
+    Call<EmployeeAPIContainer> getData(
             @Path("id") String id
     );
 }
