@@ -15,4 +15,5 @@
     <string name="admin">admin</string>
     <string name="password">Password</string>
     <string name="server_address">server address</string>
+    <string name="admin_pin">Enter PIN</string>
 </resources>
