@@ -28,7 +28,8 @@ public class PinToAdmin extends AppCompatActivity {
                     Intent adminScreen = new Intent(PinToAdmin.this, Admin.class);
                     startActivity(adminScreen);
                 } else {
-                    //TODO make a toast to display try again or press back.
+                    //TODO make a toast to display try again or press back. then check if the back behavior in Admin is overridden properly
+
                 }
             }
         });
