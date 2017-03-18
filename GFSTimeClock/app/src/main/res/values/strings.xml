@@ -22,5 +22,7 @@
 
 
     <string name="submit">submit</string>
+    <string name="id_entry">ID entry</string>
+    <string name="enter_id">Enter ID</string>
 
 </resources>

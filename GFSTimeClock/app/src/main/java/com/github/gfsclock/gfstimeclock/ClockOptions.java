@@ -32,8 +32,7 @@ public class ClockOptions extends AppCompatActivity {
         employeeIdTextView.setText(id);
     }
 
-
-
+    
     private int employeeID = 0;
     private APIMapper mapper = APIMapper.getInstance();
     private ArrayList<PunchModel> punches;

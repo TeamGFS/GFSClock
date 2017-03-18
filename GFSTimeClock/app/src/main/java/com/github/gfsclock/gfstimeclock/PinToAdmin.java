@@ -21,7 +21,7 @@ public class PinToAdmin extends AppCompatActivity {
         SharedPreferences prefs = getSharedPreferences("admin_pin", MODE_PRIVATE);
         final String savedPin = prefs.getString("pin", "1234");
 
-        // TODO figure out how to initalize sharedpref pin because the above line will allow an empty pin
+
         final Button okButton = (Button) findViewById(R.id.okButton);
         okButton.setOnClickListener(new View.OnClickListener() {
             @Override

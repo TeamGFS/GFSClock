@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.zxing.client.android.Intents;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
@@ -43,6 +44,16 @@ public class ScanBadge extends AppCompatActivity {
     public void admin(View view){
         Intent pinScreen = new Intent(ScanBadge.this, PinToAdmin.class);
         ScanBadge.this.startActivity(pinScreen);
+    }
+
+    /**
+     * The manual() method is called when passign intent to the manual badge input screen.
+     * Since the manual input is another activity control will be passed directly to it.
+     * @param view
+     */
+    public void manual(View view){
+        Intent manualEntry = new Intent(ScanBadge.this, ManualBadgeInput.class);
+        ScanBadge.this.startActivity(manualEntry);
     }
 
 
