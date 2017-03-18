@@ -19,10 +19,12 @@
     <string name="admin_pin">Enter PIN</string>
     <string name="incorrect_pin">Incorrect PIN, try again</string>
     <string name="incorrect_pin_title">Incorrect PIN</string>
-
+    <string name="incorrect_pin_message">Incorrect PIN please try again.</string>
 
     <string name="submit">submit</string>
     <string name="id_entry">ID entry</string>
     <string name="enter_id">Enter ID</string>
+    <string name="id_empty">ID empty</string>
+    <string name="id_empty_message">ID must have a value</string>
 
 </resources>
