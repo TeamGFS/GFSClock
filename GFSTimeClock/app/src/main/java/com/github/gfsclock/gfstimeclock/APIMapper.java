@@ -104,7 +104,7 @@ public class APIMapper {
         SharedPreferences appPref = PreferenceManager.getDefaultSharedPreferences(Startup.getContext());
         return appPref.getString("serverAddress", "nil");
     }
-    
+
     // Stubs
     private void checkConnection() {
         // check for connection to API
