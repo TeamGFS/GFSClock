@@ -3,16 +3,28 @@ package com.github.gfsclock.gfstimeclock;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Date;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class ClockOptions extends AppCompatActivity {
+    private int employeeID = 0;
+    private APIMapper mapper = APIMapper.getInstance();
+    private List<PunchModel> punches;
+    private TextView employeeIdTextView;
+    private static final String TAG = "ClockOptions";
 
     /**
      * Entry point to the ClockOptions activity, handles result from barcode intent and
@@ -34,6 +46,31 @@ public class ClockOptions extends AppCompatActivity {
         employeeIdTextView.setText(id);
     }
 
+    private void getEmployeeInfo(int id) {
+        SharedPreferences sPref = PreferenceManager.getDefaultSharedPreferences(Startup.getContext());
+        String username = sPref.getString("username", "");
+        String password = sPref.getString("password", "");
+        EmployeeQueryService infoClient = InfoServiceGenerator.createService(EmployeeQueryService.class, username, password);
+        Call<EmployeeAPIContainer> call = infoClient.getData(id);
+        call.enqueue(new Callback<EmployeeAPIContainer>() {
+            @Override
+            public void onResponse(Call<EmployeeAPIContainer> call, Response<EmployeeAPIContainer> response) {
+                if (response.isSuccessful()) {
+                    // do things
+                }   else {
+                    // error or no connnection
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<EmployeeAPIContainer> call, Throwable t) {
+                Log.d(TAG, t.getMessage());
+            }
+        });
+
+    }
+
     /**
      * Rather than transition back to the ManualBadgeInput we must override this onBackPressed() method.
      */
@@ -42,10 +79,7 @@ public class ClockOptions extends AppCompatActivity {
         backToScanBadge();
     }
 
-    private int employeeID = 0;
-    private APIMapper mapper = APIMapper.getInstance();
-    private ArrayList<PunchModel> punches;
-    private TextView employeeIdTextView;
+
 
     /**
      * Shows alert dialog with punch history on button press.
