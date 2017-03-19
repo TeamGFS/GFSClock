@@ -28,7 +28,6 @@ public class ClockOptions extends AppCompatActivity {
         Intent intent = getIntent();
         String id = intent.getStringExtra("barcode");
         employeeID = Integer.parseInt(id.substring(id.length() - 5, id.length()));
-        // TODO change how parseInt obtains the employeeID
         punches = mapper.getPunchesID(employeeID);
         employeeIdTextView = (TextView) findViewById(R.id.employeeIdTextView);
         employeeIdTextView.setText(id);
