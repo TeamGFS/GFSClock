@@ -39,7 +39,7 @@ public class ManualBadgeInput extends AppCompatActivity {
                     AlertDialog dialog = builder.create();
                     dialog.show();
                 } else {
-                    barcode = id;
+                    barcode = String.format("%010d", Integer.parseInt(id));
                     Intent optionsScreen = new Intent(ManualBadgeInput.this, ClockOptions.class);
                     optionsScreen.putExtra("barcode", barcode);
                     ManualBadgeInput.this.startActivity(optionsScreen);
