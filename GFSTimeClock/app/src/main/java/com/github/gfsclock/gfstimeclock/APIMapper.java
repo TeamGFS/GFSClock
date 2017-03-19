@@ -116,7 +116,7 @@ public class APIMapper {
         // check to see if user is authorized
     }
 
-    public EmployeeAPIContainer getEmployeeInfo(String idInput) {
+    public EmployeeAPIContainer getEmployeeInfo(int idInput) {
         SharedPreferences sPref = PreferenceManager.getDefaultSharedPreferences(Startup.getContext());
         String username = sPref.getString("username", "");
         String password = sPref.getString("password", "");
@@ -129,6 +129,6 @@ public class APIMapper {
             return new EmployeeAPIContainer();
         }
 
-        // TODO: Parse EmployeAPIContainer.ded before returning
+        // TODO: Parse EmployeeAPIContainer.ded before returning
     }
 }
