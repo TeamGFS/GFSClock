@@ -14,4 +14,14 @@ public interface PunchQueryService {
     Call<List<PunchModel>> getPunchesByID(
             @Body PunchList punchesByID
     );
+
+    @GET("/sumtotalWebclock/api/service/findEmployeesAssignedToClock/{id}")
+    Call<List<String>> getEmployeesAssignedToClock (
+            @Path("id") String clockId
+    );
+
+    @POST("/sumtotalWebclock/api/service/submitPunchesByDate")
+    Call<Boolean> submitPunch(
+            @Body PunchModel punch
+    );
 }
