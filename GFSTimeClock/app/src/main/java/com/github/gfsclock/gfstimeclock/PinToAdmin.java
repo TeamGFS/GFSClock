@@ -20,7 +20,6 @@ public class PinToAdmin extends AppCompatActivity {
 
         SharedPreferences prefs = getSharedPreferences("admin_pin", MODE_PRIVATE);
         final String savedPin = prefs.getString("pin", "1234");
-
         final Button okButton = (Button) findViewById(R.id.okButton);
         okButton.setOnClickListener(new View.OnClickListener() {
             @Override
