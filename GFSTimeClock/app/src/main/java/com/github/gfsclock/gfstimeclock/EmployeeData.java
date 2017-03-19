@@ -1,28 +1,17 @@
 package com.github.gfsclock.gfstimeclock;
 
 
+// class to hold deserialized contents of ded
+
 public class EmployeeData {
 
     private String firstName;
     private String lastName;
-    private String employeeID;
+    private String employeeNbr; // employee ID
     private String commonName;
+    private String deptId;
+    private String jobCode;
 
     public EmployeeData() {}
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public void setEmployeeID(String employeeID) {
-        this.employeeID = employeeID;
-    }
-
-    public void setCommonName(String commonName) {
-        this.commonName = commonName;
-    }
 }
