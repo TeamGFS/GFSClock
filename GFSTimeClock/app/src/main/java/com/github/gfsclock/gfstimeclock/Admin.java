@@ -33,10 +33,10 @@ public class Admin extends AppCompatActivity {
 
         // Get Data from Shared Preferences - if not value present display hardcoded string / stub
         SharedPreferences settingStore = PreferenceManager.getDefaultSharedPreferences(Startup.getContext());
-        serverAddress = settingStore.getString("serverAddress", String.valueOf(R.string.server_address));
-        username = settingStore.getString("username", String.valueOf(R.string.user_name));
-        password = settingStore.getString("password", String.valueOf(R.string.password));
-        clockId = settingStore.getString("clockId", String.valueOf(R.string.clock_id));
+        serverAddress = settingStore.getString("serverAddress", Startup.getContext().getString(R.string.server_address));
+        username = settingStore.getString("username", Startup.getContext().getString(R.string.user_name));
+        password = settingStore.getString("password", Startup.getContext().getString(R.string.password));
+        clockId = settingStore.getString("clockId", Startup.getContext().getString(R.string.clock_id));
 
         // Load Text Fields, and populate them
         serverAddressField = (EditText) findViewById(R.id.ServerAddress);
@@ -47,7 +47,6 @@ public class Admin extends AppCompatActivity {
         passwordField.setText(password, TextView.BufferType.EDITABLE);
         clockIdField = (EditText) findViewById(R.id.ClockID);
         clockIdField.setText(clockId, TextView.BufferType.EDITABLE);
-
 
         final Button button = (Button) findViewById(R.id.Save);
         button.setOnClickListener(new View.OnClickListener() {

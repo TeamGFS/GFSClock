@@ -20,9 +20,10 @@
         </activity>
         <activity
             android:name=".ClockOptions"
-            android:screenOrientation="landscape"></activity>
+            android:screenOrientation="landscape" />
         <activity android:name=".Admin" />
-        <activity android:name=".PinToAdmin"></activity>
+        <activity android:name=".PinToAdmin" />
+        <activity android:name=".ManualBadgeInput"></activity>
     </application>
 
 </manifest>
