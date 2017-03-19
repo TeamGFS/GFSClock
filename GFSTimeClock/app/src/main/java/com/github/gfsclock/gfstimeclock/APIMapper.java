@@ -1,5 +1,11 @@
 package com.github.gfsclock.gfstimeclock;
 
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+import android.text.format.DateUtils;
+import android.util.Log;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -7,11 +13,13 @@ import java.util.List;
 import io.realm.Realm;
 import io.realm.RealmQuery;
 import io.realm.RealmResults;
+import retrofit2.Call;
 
 
 public class APIMapper {
     private static APIMapper mInstance = null;
     private Realm realm;
+    private static final String TAG = "APIMAPPER";
 
     private APIMapper() {};
 
@@ -57,8 +65,23 @@ public class APIMapper {
 
     }
 
-    public ArrayList<PunchModel> getPunchesID(int eID) {
+    public List<PunchModel> getPunchesID(int eID) {
         // TODO Fail on invalid id
+        SharedPreferences sPref = PreferenceManager.getDefaultSharedPreferences(Startup.getContext());
+        String username = sPref.getString("username", "");
+        String password = sPref.getString("password", "");
+        PunchQueryService punchClient = APIServiceGenerator.createService(PunchQueryService.class, username, password);
+        Date endDate= new Date();
+        Date startDate = new Date(endDate.getTime() - 3600 * 13);
+        PunchList pList = new PunchList(eID, startDate.toString(), endDate.toString());
+        Call<List<PunchModel>> punches = punchClient.getPunchesByID(pList);
+
+        try {
+            List<PunchModel> resultList = punches.execute().body();
+            return resultList;
+        } catch (IOException e) {
+            Log.e(TAG, e.toString());
+        }
 
         realmSetup();
 
@@ -95,5 +118,35 @@ public class APIMapper {
 
     private void realmSetdown() {
         realm.close();
+    }
+
+    private String getAPIURLPreference() {
+        SharedPreferences appPref = PreferenceManager.getDefaultSharedPreferences(Startup.getContext());
+        return appPref.getString("serverAddress", "nil");
+    }
+
+    // Stubs
+    private void checkConnection() {
+        // check for connection to API
+    }
+
+    private void checkAuth() {
+        // check to see if user is authorized
+    }
+
+    public EmployeeAPIContainer getEmployeeInfo(int idInput) {
+        SharedPreferences sPref = PreferenceManager.getDefaultSharedPreferences(Startup.getContext());
+        String username = sPref.getString("username", "");
+        String password = sPref.getString("password", "");
+        EmployeeQueryService idClient = InfoServiceGenerator.createService(EmployeeQueryService.class, username, password);
+        Call<EmployeeAPIContainer> call = idClient.getData(idInput);
+        try {
+            EmployeeAPIContainer eData = call.execute().body();
+            return eData;
+        } catch (IOException e) {
+            return new EmployeeAPIContainer();
+        }
+
+        // TODO: Parse EmployeeAPIContainer.ded before returning
     }
 }
