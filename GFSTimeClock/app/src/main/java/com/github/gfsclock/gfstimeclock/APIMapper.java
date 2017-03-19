@@ -3,6 +3,7 @@ package com.github.gfsclock.gfstimeclock;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.List;
 import io.realm.Realm;
 import io.realm.RealmQuery;
 import io.realm.RealmResults;
+import retrofit2.Call;
 
 
 public class APIMapper {
@@ -112,5 +114,19 @@ public class APIMapper {
 
     private void checkAuth() {
         // check to see if user is authorized
+    }
+
+    private EmployeeAPIContainer getEmployeeInfo(String idInput) {
+        SharedPreferences sPref = PreferenceManager.getDefaultSharedPreferences(Startup.getContext());
+        String username = sPref.getString("username", "");
+        String password = sPref.getString("password", "");
+        EmployeeQueryService idClient = InfoServiceGenerator.createService(EmployeeQueryService.class, username, password);
+        Call<EmployeeAPIContainer> call = idClient.getData(idInput);
+        try {
+            EmployeeAPIContainer eData = call.execute().body();
+            return eData;
+        } catch (IOException e) {
+            return new EmployeeAPIContainer();
+        }
     }
 }

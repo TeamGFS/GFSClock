@@ -9,12 +9,19 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class APIServiceGenerator {
-    private static String BASE_URL = PreferenceManager.getDefaultSharedPreferences(Startup.getContext()).
+    private static String apiBaseURL = PreferenceManager.getDefaultSharedPreferences(Startup.getContext()).
             getString("serverAddress", "https://sitwebclock.gfs.com/");
-    private static Retrofit.Builder builder = new Retrofit.Builder().baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create());
+    private static Retrofit.Builder builder = new Retrofit.Builder()
+            .addConverterFactory(GsonConverterFactory.create()).baseUrl(apiBaseURL);
     private static Retrofit retrofit = builder.build();
     private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+
+    public static void changeApiBaseURL(String newURL) {
+        apiBaseURL = newURL;
+        builder = new Retrofit.Builder()
+                .addConverterFactory(GsonConverterFactory.create()).baseUrl(apiBaseURL);
+    }
+
     public static <S> S createService(Class<S> serviceClass) {
             return createService(serviceClass, null, null);
             //return retrofit.create(serviceClass);
