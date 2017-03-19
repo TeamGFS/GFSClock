@@ -21,7 +21,7 @@ public class PinToAdmin extends AppCompatActivity {
         SharedPreferences prefs = getSharedPreferences("admin_pin", MODE_PRIVATE);
         final String savedPin = prefs.getString("pin", "1234");
 
-        // TODO figure out how to initalize sharedpref pin because the above line will allow an empty pin
+
         final Button okButton = (Button) findViewById(R.id.okButton);
         okButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -32,9 +32,8 @@ public class PinToAdmin extends AppCompatActivity {
                     startActivity(adminScreen);
                 } else {
                     AlertDialog.Builder builder = new AlertDialog.Builder(PinToAdmin.this);
-                    builder.setTitle(getString(R.string.incorrect_pin_title));
-                    String incorrectPin = "incorrect pin, please try again";
-                    builder.setMessage(incorrectPin);
+                    builder.setTitle(getString(R.string.incorrect_pin));
+                    builder.setMessage(getString(R.string.incorrect_pin_message));
                     String positiveText = getString(android.R.string.ok);
                     builder.setPositiveButton(positiveText, new DialogInterface.OnClickListener() {
                         @Override
