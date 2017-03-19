@@ -34,11 +34,8 @@ public class Admin extends AppCompatActivity {
         // Get Data from Shared Preferences - if not value present display hardcoded string / stub
         SharedPreferences settingStore = PreferenceManager.getDefaultSharedPreferences(Startup.getContext());
         serverAddress = settingStore.getString("serverAddress", Startup.getContext().getString(R.string.server_address));
-
         username = settingStore.getString("username", Startup.getContext().getString(R.string.user_name));
-
         password = settingStore.getString("password", Startup.getContext().getString(R.string.password));
-
         clockId = settingStore.getString("clockId", Startup.getContext().getString(R.string.clock_id));
 
         // Load Text Fields, and populate them
