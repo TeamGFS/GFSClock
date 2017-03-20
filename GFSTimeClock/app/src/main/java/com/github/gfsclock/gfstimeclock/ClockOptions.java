@@ -49,15 +49,19 @@ public class ClockOptions extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        System.out.println("ClockOptions");
         setContentView(R.layout.activity_clock_options);
 
         Intent intent = getIntent();
-        String id = intent.getStringExtra("barcode");
-        employeeID = Integer.parseInt(id.substring(id.length() - 5, id.length()));
+        int id = intent.getIntExtra("barcode", 0);
+        System.out.println("Clocked ID was" + id);
+        //String id = intent.getStringExtra("barcode");
+        //employeeID = Integer.parseInt(id.substring(id.length() - 5, id.length()));
+        employeeID = id;
         punches = mapper.getPunchesID(employeeID);
         employeeIdTextView = (TextView) findViewById(R.id.employeeIdTextView);
-        employeeIdTextView.setText(id);
-        int intID = Integer.parseInt(id);
+        employeeIdTextView.setText(Integer.toString(id));
+        int intID = id;
         getEmployeeInfo(intID);
 
     }
@@ -72,10 +76,12 @@ public class ClockOptions extends AppCompatActivity {
             @Override
             public void onResponse(Call<EmployeeAPIContainer> call, Response<EmployeeAPIContainer> response) {
                 if (response.isSuccessful()) {
+                    System.out.println("Response Successful");
                     // do things populate employee name and picture
                     Log.d(TAG, response.toString());
                 } else {
                     // error or no connnection
+                    System.out.println("Response not successful.\n" + response.toString());
                     Log.d(TAG, response.toString());
                     backToScanBadge();
                 }
