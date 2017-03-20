@@ -1,7 +1,6 @@
-package com.github.gfsclock.apimapper;
+package com.github.gfsclock.gfstimeclock;
 
 import java.util.Date;
-
 import io.realm.RealmObject;
 
 public class PunchModel extends RealmObject{

@@ -5,13 +5,26 @@ package com.github.gfsclock.gfstimeclock;
  */
 
 import android.app.Application;
+import android.content.Context;
 
 import io.realm.Realm;
 
-public class Startup extends Application{
+/**
+ * Startup()
+ * This function initializes a new Realm instance.
+ */
+public class Startup extends Application {
+
+    private static Context context;
+
+    public static Context getContext() {
+        return context;
+    }
+
     @Override
     public void onCreate(){
         super.onCreate();
+        context = getApplicationContext();
         Realm.init(this);
     }
 }

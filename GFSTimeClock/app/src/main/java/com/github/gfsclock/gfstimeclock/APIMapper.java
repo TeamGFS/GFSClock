@@ -1,5 +1,11 @@
-package com.github.gfsclock.apimapper;
+package com.github.gfsclock.gfstimeclock;
 
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+import android.text.format.DateUtils;
+import android.util.Log;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -7,19 +13,21 @@ import java.util.List;
 import io.realm.Realm;
 import io.realm.RealmQuery;
 import io.realm.RealmResults;
+import retrofit2.Call;
 
 
-public class APIMapperOffline {
-    private static APIMapperOffline mInstance = null;
+public class APIMapper {
+    private static APIMapper mInstance = null;
     private Realm realm;
+    private static final String TAG = "APIMAPPER";
 
-    private APIMapperOffline() {};
+    private APIMapper() {};
 
-    public static APIMapperOffline getInstance() {
+    public static APIMapper getInstance() {
         if(mInstance == null) {
-            synchronized(APIMapperOffline.class) {
+            synchronized(APIMapper.class) {
                 if (mInstance == null) {
-                    mInstance = new APIMapperOffline();
+                    mInstance = new APIMapper();
                 }
             }
         }
@@ -58,8 +66,6 @@ public class APIMapperOffline {
     }
 
     public ArrayList<PunchModel> getPunchesID(int eID) {
-        // TODO Fail on invalid id
-
         realmSetup();
 
         RealmQuery query = realm.where(PunchModel.class);
@@ -95,5 +101,35 @@ public class APIMapperOffline {
 
     private void realmSetdown() {
         realm.close();
+    }
+
+    private String getAPIURLPreference() {
+        SharedPreferences appPref = PreferenceManager.getDefaultSharedPreferences(Startup.getContext());
+        return appPref.getString("serverAddress", "nil");
+    }
+
+    // Stubs
+    private void checkConnection() {
+        // check for connection to API
+    }
+
+    private void checkAuth() {
+        // check to see if user is authorized
+    }
+
+    public EmployeeAPIContainer getEmployeeInfo(int idInput) {
+        SharedPreferences sPref = PreferenceManager.getDefaultSharedPreferences(Startup.getContext());
+        String username = sPref.getString("username", "");
+        String password = sPref.getString("password", "");
+        EmployeeQueryService idClient = InfoServiceGenerator.createService(EmployeeQueryService.class, username, password);
+        Call<EmployeeAPIContainer> call = idClient.getData(idInput);
+        try {
+            EmployeeAPIContainer eData = call.execute().body();
+            return eData;
+        } catch (IOException e) {
+            return new EmployeeAPIContainer();
+        }
+
+        // TODO: Parse EmployeeAPIContainer.ded before returning
     }
 }
