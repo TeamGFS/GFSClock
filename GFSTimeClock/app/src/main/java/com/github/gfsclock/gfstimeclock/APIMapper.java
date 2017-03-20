@@ -65,24 +65,7 @@ public class APIMapper {
 
     }
 
-    public List<PunchModel> getPunchesID(int eID) {
-        // TODO Fail on invalid id
-        SharedPreferences sPref = PreferenceManager.getDefaultSharedPreferences(Startup.getContext());
-        String username = sPref.getString("username", "");
-        String password = sPref.getString("password", "");
-        PunchQueryService punchClient = APIServiceGenerator.createService(PunchQueryService.class, username, password);
-        Date endDate= new Date();
-        Date startDate = new Date(endDate.getTime() - 3600 * 13);
-        PunchList pList = new PunchList(eID, startDate.toString(), endDate.toString());
-        Call<List<PunchModel>> punches = punchClient.getPunchesByID(pList);
-
-        try {
-            List<PunchModel> resultList = punches.execute().body();
-            return resultList;
-        } catch (IOException e) {
-            Log.e(TAG, e.toString());
-        }
-
+    public ArrayList<PunchModel> getPunchesID(int eID) {
         realmSetup();
 
         RealmQuery query = realm.where(PunchModel.class);

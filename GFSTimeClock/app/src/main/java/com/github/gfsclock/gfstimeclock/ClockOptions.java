@@ -3,16 +3,42 @@ package com.github.gfsclock.gfstimeclock;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Date;
 
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+
 public class ClockOptions extends AppCompatActivity {
+
+    private int employeeID = 0;
+    private APIMapper mapper = APIMapper.getInstance();
+    private ArrayList<PunchModel> punches;
+    private TextView employeeIdTextView;
+    private static final String TAG = "ClockOptions";
+
+    // bind buttons
+//    Button clockinButton = (Button) findViewById(R.id.ClockInButton);
+//    Button clockOutButton = (Button) findViewById(R.id.ClockOutButton);
+//    Button breakInButton = (Button) findViewById(R.id.BreakInButton);
+//    Button breakOutButton = (Button) findViewById(R.id.BreakOutButton);
+//    Button lunchInButton = (Button) findViewById(R.id.LunchInButton);
+//    Button lunchOutButton = (Button) findViewById(R.id.LunchOutButton);
 
     /**
      * Entry point to the ClockOptions activity, handles result from barcode intent and
@@ -23,16 +49,105 @@ public class ClockOptions extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        System.out.println("ClockOptions");
         setContentView(R.layout.activity_clock_options);
 
         Intent intent = getIntent();
-        String id = intent.getStringExtra("barcode");
-        employeeID = Integer.parseInt(id.substring(id.length() - 5, id.length()));
-        // TODO change how parseInt obtains the employeeID
+        int id = intent.getIntExtra("barcode", 0);
+        System.out.println("Clocked ID was" + id);
+        //String id = intent.getStringExtra("barcode");
+        //employeeID = Integer.parseInt(id.substring(id.length() - 5, id.length()));
+        employeeID = id;
         punches = mapper.getPunchesID(employeeID);
         employeeIdTextView = (TextView) findViewById(R.id.employeeIdTextView);
-        employeeIdTextView.setText(id);
+        employeeIdTextView.setText(Integer.toString(id));
+        int intID = id;
+        getEmployeeInfo(intID);
+
     }
+
+    private void getEmployeeInfo(int id) {
+        SharedPreferences sPref = PreferenceManager.getDefaultSharedPreferences(Startup.getContext());
+        String username = sPref.getString("username", "");
+        String password = sPref.getString("password", "");
+        EmployeeQueryService infoClient = InfoServiceGenerator.createService(EmployeeQueryService.class, username, password);
+        Call<EmployeeAPIContainer> call = infoClient.getData(id);
+        call.enqueue(new Callback<EmployeeAPIContainer>() {
+            @Override
+            public void onResponse(Call<EmployeeAPIContainer> call, Response<EmployeeAPIContainer> response) {
+                if (response.isSuccessful()) {
+                    System.out.println("Response Successful");
+                    // do things populate employee name and picture
+                    Log.d(TAG, response.toString());
+                } else {
+                    // error or no connnection
+                    System.out.println("Response not successful.\n" + response.toString());
+                    Log.d(TAG, response.toString());
+                    backToScanBadge();
+                }
+            }
+
+            public void onFailure(Call<EmployeeAPIContainer> call, Throwable t) {
+                Log.d(TAG, t.getMessage());
+            }
+        });
+    }
+
+
+//    // TODO this might have an error...
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//        // build switch statement to make buttons un-clickable depending on state
+//        String docket = punches.get(punches.size() - 1).getDocket();
+//        switch (docket) {
+//            // last activity was clockIn -> disable buttons to clockIn, endBreak, endLunch
+//            case "F1":
+//                clockinButton.setEnabled(false);
+//                breakInButton.setEnabled(false);
+//                lunchInButton.setEnabled(false);
+//                break;
+//            // last activity was breakOut -> disable all but breakInButton
+//            case "F2":
+//                clockinButton.setEnabled(false);
+//                clockOutButton.setEnabled(false);
+//                breakOutButton.setEnabled(false);
+//                lunchInButton.setEnabled(false);
+//                lunchOutButton.setEnabled(false);
+//                break;
+//            // last activity was lunchOut -> disable all but lunchInButton
+//            case "F3":
+//                clockinButton.setEnabled(false);
+//                clockOutButton.setEnabled(false);
+//                breakInButton.setEnabled(false);
+//                breakOutButton.setEnabled(false);
+//                lunchOutButton.setEnabled(false);
+//                break;
+//            case "F4":
+//                // goofy case - job change code not sure how to handle this yet
+//                break;
+//            // last activity was clockOut -> disable all but clockIn
+//            case "F5":
+//                clockOutButton.setEnabled(false);
+//                breakInButton.setEnabled(false);
+//                breakOutButton.setEnabled(false);
+//                lunchOutButton.setEnabled(false);
+//                lunchInButton.setEnabled(false);
+//                break;
+//            // last activity was breakIn -> disable clockIn, breakIn, lunchIn
+//            case "F6":
+//                clockinButton.setEnabled(false);
+//                breakInButton.setEnabled(false);
+//                lunchInButton.setEnabled(false);
+//                break;
+//            // last activity was lunchIn -> disable lunchIn, clockIn, breakIn
+//            case "F7":
+//                lunchInButton.setEnabled(false);
+//                clockinButton.setEnabled(false);
+//                breakInButton.setEnabled(false);
+//                break;
+//        }
+//    }
 
     /**
      * Rather than transition back to the ManualBadgeInput we must override this onBackPressed() method.
@@ -42,10 +157,7 @@ public class ClockOptions extends AppCompatActivity {
         backToScanBadge();
     }
 
-    private int employeeID = 0;
-    private APIMapper mapper = APIMapper.getInstance();
-    private ArrayList<PunchModel> punches;
-    private TextView employeeIdTextView;
+
 
     /**
      * Shows alert dialog with punch history on button press.
