@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
 
@@ -25,7 +26,10 @@ import retrofit2.Response;
 
 public class ClockOptions extends AppCompatActivity {
 
-
+    private int employeeID = 0;
+    private APIMapper mapper = APIMapper.getInstance();
+    private ArrayList<PunchModel> punches;
+    private TextView employeeIdTextView;
     private static final String TAG = "ClockOptions";
 
     // bind buttons
@@ -50,7 +54,7 @@ public class ClockOptions extends AppCompatActivity {
         Intent intent = getIntent();
         String id = intent.getStringExtra("barcode");
         employeeID = Integer.parseInt(id.substring(id.length() - 5, id.length()));
-//        punches = mapper.getPunchesID(employeeID);
+        punches = mapper.getPunchesID(employeeID);
         employeeIdTextView = (TextView) findViewById(R.id.employeeIdTextView);
         employeeIdTextView.setText(id);
         int intID = Integer.parseInt(id);
@@ -147,10 +151,7 @@ public class ClockOptions extends AppCompatActivity {
         backToScanBadge();
     }
 
-    private int employeeID = 0;
-    private APIMapper mapper = APIMapper.getInstance();
-    private List<PunchModel> punches;
-    private TextView employeeIdTextView;
+
 
     /**
      * Shows alert dialog with punch history on button press.

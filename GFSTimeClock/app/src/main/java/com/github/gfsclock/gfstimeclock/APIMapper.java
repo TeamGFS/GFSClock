@@ -65,7 +65,7 @@ public class APIMapper {
 
     }
 
-    public List<PunchModel> getPunchesID(int eID) {
+    public ArrayList<PunchModel> getPunchesID(int eID) {
         // TODO Fail on invalid id
         SharedPreferences sPref = PreferenceManager.getDefaultSharedPreferences(Startup.getContext());
         String username = sPref.getString("username", "");
@@ -77,7 +77,7 @@ public class APIMapper {
         Call<List<PunchModel>> punches = punchClient.getPunchesByID(pList);
 
         try {
-            List<PunchModel> resultList = punches.execute().body();
+            ArrayList<PunchModel> resultList = (ArrayList<PunchModel>) punches.execute().body();
             return resultList;
         } catch (IOException e) {
             Log.e(TAG, e.toString());
