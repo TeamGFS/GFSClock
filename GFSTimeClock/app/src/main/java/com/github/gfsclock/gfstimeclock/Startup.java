@@ -8,6 +8,8 @@ import android.app.Application;
 import android.content.Context;
 
 import io.realm.Realm;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 /**
  * Startup()

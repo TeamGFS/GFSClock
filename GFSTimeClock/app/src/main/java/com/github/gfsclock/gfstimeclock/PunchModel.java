@@ -1,7 +1,7 @@
 package com.github.gfsclock.gfstimeclock;
 
-import java.util.Date;
 import io.realm.RealmObject;
+import org.joda.time.DateTime;
 
 public class PunchModel extends RealmObject{
     /*
@@ -17,7 +17,7 @@ public class PunchModel extends RealmObject{
     private int id;
     private String docket;
     private String jobCode; // used for job change
-    private Date timeStamp;
+    private DateTime timeStamp;
     private String department; // used for job change
 
     public int getId() {
@@ -44,11 +44,11 @@ public class PunchModel extends RealmObject{
         this.jobCode = jobCode;
     }
 
-    public Date getTimeStamp() {
+    public DateTime getTimeStamp() {
         return timeStamp;
     }
 
-    public void setTimeStamp(Date timeStamp) {
+    public void setTimeStamp(DateTime timeStamp) {
         this.timeStamp = timeStamp;
     }
 

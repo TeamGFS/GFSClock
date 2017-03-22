@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Date;
+import org.joda.time.DateTime;
 
 
 import retrofit2.Call;
@@ -190,7 +190,7 @@ public class ClockOptions extends AppCompatActivity {
      * @param view
      */
     public void clockIn(View view) {
-        mapper.punch(employeeID, "F1", new Date());
+        mapper.punch(employeeID, "F1", new DateTime());
         backToScanBadge();
     }
 
@@ -200,7 +200,7 @@ public class ClockOptions extends AppCompatActivity {
      * @param view
      */
     public void breakOut(View view) {
-        mapper.punch(employeeID, "F2", new Date());
+        mapper.punch(employeeID, "F2", new DateTime());
         backToScanBadge();
     }
 
@@ -210,7 +210,7 @@ public class ClockOptions extends AppCompatActivity {
      * @param view
      */
     public void lunchOut(View view) {
-        mapper.punch(employeeID, "F3", new Date());
+        mapper.punch(employeeID, "F3", new DateTime());
         backToScanBadge();
     }
 
@@ -220,7 +220,7 @@ public class ClockOptions extends AppCompatActivity {
      * @param view
      */
     public void clockOut(View view) {
-        mapper.punch(employeeID, "F5", new Date());
+        mapper.punch(employeeID, "F5", new DateTime());
         backToScanBadge();
     }
 
@@ -230,7 +230,7 @@ public class ClockOptions extends AppCompatActivity {
      * @param view
      */
     public void breakIn(View view) {
-        mapper.punch(employeeID, "F6", new Date());
+        mapper.punch(employeeID, "F6", new DateTime());
         backToScanBadge();
     }
 
@@ -240,7 +240,7 @@ public class ClockOptions extends AppCompatActivity {
      * @param view
      */
     public void lunchIn(View view) {
-        mapper.punch(employeeID, "F7", new Date());
+        mapper.punch(employeeID, "F7", new DateTime());
         backToScanBadge();
     }
 
