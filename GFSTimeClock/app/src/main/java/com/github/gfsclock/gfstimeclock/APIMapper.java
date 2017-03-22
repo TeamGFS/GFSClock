@@ -7,7 +7,7 @@ import android.util.Log;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
+import org.joda.time.DateTime;
 import java.util.List;
 
 import io.realm.Realm;
@@ -57,7 +57,7 @@ public class APIMapper {
         PunchModel punch1 = realm.createObject(PunchModel.class);
         punch1.setId(29313);
         punch1.setDocket("F1");
-        punch1.setTimeStamp(new Date());
+        punch1.setTimeStamp(new DateTime());
         realm.commitTransaction();
 
         realmSetdown();
@@ -80,7 +80,7 @@ public class APIMapper {
         return output;
     }
 
-    public void punch(int eID, String docket, Date time) {
+    public void punch(int eID, String docket, DateTime time) {
         // TODO Fail on Invalid ID not already in DB
 
         realmSetup();
