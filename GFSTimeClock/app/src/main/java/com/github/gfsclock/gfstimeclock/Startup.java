@@ -8,6 +8,7 @@ import android.app.Application;
 import android.content.Context;
 
 import io.realm.Realm;
+import com.jakewharton.threetenabp.AndroidThreeTen;
 
 /**
  * Startup()
@@ -25,6 +26,7 @@ public class Startup extends Application {
     public void onCreate(){
         super.onCreate();
         context = getApplicationContext();
+        AndroidThreeTen.init(this);
         Realm.init(this);
     }
 }
