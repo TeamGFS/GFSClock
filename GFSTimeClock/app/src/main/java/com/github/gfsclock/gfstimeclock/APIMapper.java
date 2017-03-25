@@ -2,24 +2,24 @@ package com.github.gfsclock.gfstimeclock;
 
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.text.format.DateUtils;
-import android.util.Log;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import io.realm.Realm;
 import io.realm.RealmQuery;
 import io.realm.RealmResults;
 import retrofit2.Call;
+import org.threeten.bp.*;
 
 
 public class APIMapper {
     private static APIMapper mInstance = null;
     private Realm realm;
     private static final String TAG = "APIMAPPER";
+    private Date punchDate;
+    private String punchString;
 
     private APIMapper() {};
 
@@ -64,7 +64,6 @@ public class APIMapper {
         return true;
 
     }
-
     public ArrayList<PunchModel> getPunchesID(int eID) {
         realmSetup();
 
