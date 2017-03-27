@@ -6,20 +6,20 @@ import android.text.TextUtils;
 import okhttp3.Credentials;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.jackson.JacksonConverterFactory;
 
 public class APIServiceGenerator {
     private static String apiBaseURL = PreferenceManager.getDefaultSharedPreferences(Startup.getContext()).
             getString("serverAddress", "https://sitwebclock.gfs.com/");
     private static Retrofit.Builder builder = new Retrofit.Builder()
-            .addConverterFactory(GsonConverterFactory.create()).baseUrl(apiBaseURL);
+            .addConverterFactory(JacksonConverterFactory.create()).baseUrl(apiBaseURL);
     private static Retrofit retrofit = builder.build();
     private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
     public static void changeApiBaseURL(String newURL) {
         apiBaseURL = newURL;
         builder = new Retrofit.Builder()
-                .addConverterFactory(GsonConverterFactory.create()).baseUrl(apiBaseURL);
+                .addConverterFactory(JacksonConverterFactory.create()).baseUrl(apiBaseURL);
     }
 
     public static <S> S createService(Class<S> serviceClass) {
