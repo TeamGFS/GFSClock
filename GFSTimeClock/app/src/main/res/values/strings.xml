@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">GFS Time Clock</string>
+    <string name="admin_app_name">GFS Admin Options</string>
     <string name="scan_badge">Scan badge</string>
     <string name="clock_in_button">Start day F1</string>
     <string name="clock_out_button">End day F5</string>
