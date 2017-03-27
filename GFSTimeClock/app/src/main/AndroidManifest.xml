@@ -21,7 +21,12 @@
         <activity
             android:name=".ClockOptions"
             android:screenOrientation="landscape" />
-        <activity android:name=".Admin" />
+        <activity android:name=".Admin">
+            <intent-filter android:label="@string/admin_app_name">
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".PinToAdmin" />
         <activity android:name=".ManualBadgeInput"></activity>
     </application>
