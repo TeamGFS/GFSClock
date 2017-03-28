@@ -11,7 +11,7 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ScanBadge">
+        <activity android:name=".ScanBadgeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,16 +19,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ClockOptions"
+            android:name=".ClockOptionsActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".Admin">
+        <activity android:name=".AdminActivity">
             <intent-filter android:label="@string/admin_app_name">
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".PinToAdmin" />
-        <activity android:name=".ManualBadgeInput"></activity>
+        <activity android:name=".PinToAdminActivity" />
+        <activity android:name=".ManualInputActivity"></activity>
     </application>
 
 </manifest>
