@@ -9,9 +9,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
-public class PinToAdmin extends AppCompatActivity {
+public class PinToAdminActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,10 +25,10 @@ public class PinToAdmin extends AppCompatActivity {
             public void onClick(View v) {
                 EditText pinEditText = (EditText) findViewById(R.id.PIN);
                 if(pinEditText.getText().toString().equals(savedPin)){
-                    Intent adminScreen = new Intent(PinToAdmin.this, Admin.class);
+                    Intent adminScreen = new Intent(PinToAdminActivity.this, AdminActivity.class);
                     startActivity(adminScreen);
                 } else {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(PinToAdmin.this);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(PinToAdminActivity.this);
                     builder.setTitle(getString(R.string.incorrect_pin));
                     builder.setMessage(getString(R.string.incorrect_pin_message));
                     String positiveText = getString(android.R.string.ok);

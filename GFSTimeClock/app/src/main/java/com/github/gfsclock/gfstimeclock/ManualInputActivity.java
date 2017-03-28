@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 
-public class ManualBadgeInput extends AppCompatActivity {
+public class ManualInputActivity extends AppCompatActivity {
 
     private int barcode;
 
@@ -26,7 +26,7 @@ public class ManualBadgeInput extends AppCompatActivity {
                 EditText idEditText = (EditText) findViewById(R.id.editID);
                 String id = idEditText.getText().toString();
                 if (id.equals("")) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(ManualBadgeInput.this);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(ManualInputActivity.this);
                     builder.setTitle(getString(R.string.id_empty));
                     builder.setMessage(getString(R.string.id_empty_message));
                     String positiveText = getString(android.R.string.ok);
@@ -40,9 +40,9 @@ public class ManualBadgeInput extends AppCompatActivity {
                     dialog.show();
                 } else {
                     barcode = Integer.parseInt(id);
-                    Intent optionsScreen = new Intent(ManualBadgeInput.this, ClockOptions.class);
+                    Intent optionsScreen = new Intent(ManualInputActivity.this, ClockOptionsActivity.class);
                     optionsScreen.putExtra("barcode", barcode);
-                    ManualBadgeInput.this.startActivity(optionsScreen);
+                    ManualInputActivity.this.startActivity(optionsScreen);
                 }
             }
         });
