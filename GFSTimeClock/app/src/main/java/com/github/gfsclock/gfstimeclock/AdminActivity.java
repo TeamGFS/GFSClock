@@ -12,7 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class Admin extends AppCompatActivity {
+public class AdminActivity extends AppCompatActivity {
 
     private String serverAddress;
     private String username;
@@ -59,7 +59,7 @@ public class Admin extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         Log.d("CDA", "onBackPressed Called");
-        Intent scanBadge = new Intent(Admin.this, ScanBadge.class);
+        Intent scanBadge = new Intent(AdminActivity.this, ScanBadgeActivity.class);
         startActivity(scanBadge);
     }
 
@@ -88,7 +88,7 @@ public class Admin extends AppCompatActivity {
 
 
     public void toScanBadge(View view) {
-        Intent next = new Intent (Admin.this, ScanBadge.class);
+        Intent next = new Intent (AdminActivity.this, ScanBadgeActivity.class);
         startActivity (next);
     }
 }

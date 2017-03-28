@@ -11,11 +11,9 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Date;
 
 
@@ -24,13 +22,13 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class ClockOptions extends AppCompatActivity {
+public class ClockOptionsActivity extends AppCompatActivity {
 
     private int employeeID = 0;
     private APIMapper mapper = APIMapper.getInstance();
     private ArrayList<PunchModel> punches;
     private TextView employeeIdTextView;
-    private static final String TAG = "ClockOptions";
+    private static final String TAG = "ClockOptionsActivity";
 
     // bind buttons
 //    Button clockinButton = (Button) findViewById(R.id.ClockInButton);
@@ -41,7 +39,7 @@ public class ClockOptions extends AppCompatActivity {
 //    Button lunchOutButton = (Button) findViewById(R.id.LunchOutButton);
 
     /**
-     * Entry point to the ClockOptions activity, handles result from barcode intent and
+     * Entry point to the ClockOptionsActivity activity, handles result from barcode intent and
      * makes initial api call to get employee punches.
      *
      * @param savedInstanceState
@@ -49,7 +47,7 @@ public class ClockOptions extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        System.out.println("ClockOptions");
+        System.out.println("ClockOptionsActivity");
         setContentView(R.layout.activity_clock_options);
 
         Intent intent = getIntent();
@@ -150,7 +148,7 @@ public class ClockOptions extends AppCompatActivity {
 //    }
 
     /**
-     * Rather than transition back to the ManualBadgeInput we must override this onBackPressed() method.
+     * Rather than transition back to the ManualInputActivity we must override this onBackPressed() method.
      */
     @Override
     public void onBackPressed() {
@@ -165,7 +163,7 @@ public class ClockOptions extends AppCompatActivity {
      * @param view
      */
     public void showPunchHistoryDialog(View view) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(ClockOptions.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(ClockOptionsActivity.this);
         builder.setTitle(getString(R.string.punch_history));
         // TODO filter history for only last 3 days
         String punchHistory = "";
@@ -255,10 +253,10 @@ public class ClockOptions extends AppCompatActivity {
     }
 
     /**
-     * Method called after any activity to return to ScanBadge activity.
+     * Method called after any activity to return to ScanBadgeActivity activity.
      */
     public void backToScanBadge() {
-        Intent backToScanBadge = new Intent(ClockOptions.this, ScanBadge.class);
-        ClockOptions.this.startActivity(backToScanBadge);
+        Intent backToScanBadge = new Intent(ClockOptionsActivity.this, ScanBadgeActivity.class);
+        ClockOptionsActivity.this.startActivity(backToScanBadge);
     }
 }

@@ -6,7 +6,7 @@
     android:id="@+id/activity_options_screen"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.github.gfsclock.gfstimeclock.ClockOptions"
+    tools:context="com.github.gfsclock.gfstimeclock.ClockOptionsActivity"
     tools:layout_editor_absoluteY="89dp"
     tools:layout_editor_absoluteX="0dp">
 

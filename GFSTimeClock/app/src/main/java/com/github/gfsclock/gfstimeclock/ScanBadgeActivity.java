@@ -7,13 +7,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.google.zxing.client.android.Intents;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 
 
-public class ScanBadge extends AppCompatActivity {
+public class ScanBadgeActivity extends AppCompatActivity {
 
     private String barcode;
 
@@ -42,8 +41,8 @@ public class ScanBadge extends AppCompatActivity {
      * @param view
      */
     public void admin(View view){
-        Intent pinScreen = new Intent(ScanBadge.this, PinToAdmin.class);
-        ScanBadge.this.startActivity(pinScreen);
+        Intent pinScreen = new Intent(ScanBadgeActivity.this, PinToAdminActivity.class);
+        ScanBadgeActivity.this.startActivity(pinScreen);
     }
 
     /**
@@ -52,13 +51,13 @@ public class ScanBadge extends AppCompatActivity {
      * @param view
      */
     public void manual(View view){
-        Intent manualEntry = new Intent(ScanBadge.this, ManualBadgeInput.class);
-        ScanBadge.this.startActivity(manualEntry);
+        Intent manualEntry = new Intent(ScanBadgeActivity.this, ManualInputActivity.class);
+        ScanBadgeActivity.this.startActivity(manualEntry);
     }
 
 
     /**
-     * The onActivityResult function responds to intents that were started in the ScanBadge activity.
+     * The onActivityResult function responds to intents that were started in the ScanBadgeActivity activity.
      * This is called automatically from the result of the IntentIntegrator and can be matched to
      * either a successful scan or a canceled scan.
      * @param requestCode
@@ -71,10 +70,10 @@ public class ScanBadge extends AppCompatActivity {
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
         if(result != null) {
             if(result.getContents() == null) {
-                Log.d("ScanBadge", "Cancelled scan");
+                Log.d("ScanBadgeActivity", "Cancelled scan");
                 Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show();
             } else {
-                Log.d("ScanBadge", "Scanned");
+                Log.d("ScanBadgeActivity", "Scanned");
                 barcode = result.getContents().substring(1);
 
                 Toast.makeText(this, "Scanned: " + barcode, Toast.LENGTH_LONG).show();
@@ -90,12 +89,12 @@ public class ScanBadge extends AppCompatActivity {
 
     /**
      * The processScan() is called after a succesful scan is returned from the scanBadge1() method.
-     * This passes the contents of the scanned barcode to the ClockOptions.
+     * This passes the contents of the scanned barcode to the ClockOptionsActivity.
      */
     public void processScan(){
-        Intent optionsScreen = new Intent(ScanBadge.this, ClockOptions.class);
+        Intent optionsScreen = new Intent(ScanBadgeActivity.this, ClockOptionsActivity.class);
         optionsScreen.putExtra("barcode", barcode);
-        ScanBadge.this.startActivity(optionsScreen);
+        ScanBadgeActivity.this.startActivity(optionsScreen);
     }
 
 }
