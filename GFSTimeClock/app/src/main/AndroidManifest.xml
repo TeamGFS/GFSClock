@@ -21,7 +21,8 @@
         <activity
             android:name=".ClockOptionsActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".AdminActivity">
+        <activity android:name=".AdminActivity"
+            android:label="@string/admin_app_name">
             <intent-filter android:label="@string/admin_app_name">
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
