@@ -36,7 +36,7 @@ public class AdminActivity extends AppCompatActivity {
         serverAddress = settingStore.getString("serverAddress", null);
         username = settingStore.getString("username", null);
         password = settingStore.getString("password", null);
-        clockId = settingStore.getInt("clockId", null);
+        clockId = settingStore.getInt("clockId", 0);
 
         // Load Text Fields, and populate them
         serverAddressField = (EditText) findViewById(R.id.ServerAddress);
