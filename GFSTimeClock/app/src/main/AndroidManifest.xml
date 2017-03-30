@@ -23,7 +23,8 @@
             android:name=".ClockOptionsActivity"
             android:screenOrientation="landscape" />
         <activity android:name=".AdminActivity"
-                  android:taskAffinity="com.github.gfsclock.gfstimeclock.AdminActivity">
+                  android:taskAffinity="com.github.gfsclock.gfstimeclock.AdminActivity"
+                  android:label="@string/admin_app_name">
             <intent-filter android:label="@string/admin_app_name">
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name=".AdminActivity"/>

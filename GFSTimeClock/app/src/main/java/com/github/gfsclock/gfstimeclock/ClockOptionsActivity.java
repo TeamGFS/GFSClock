@@ -64,12 +64,15 @@ public class ClockOptionsActivity extends AppCompatActivity {
 
     }
 
+
     private void getEmployeeInfo(int id) {
         SharedPreferences sPref = PreferenceManager.getDefaultSharedPreferences(Startup.getContext());
         String username = sPref.getString("username", "");
         String password = sPref.getString("password", "");
+        Log.d(TAG, "before service");
         EmployeeQueryService infoClient = InfoServiceGenerator.createService(EmployeeQueryService.class, username, password);
         Call<EmployeeAPIContainer> call = infoClient.getData(id);
+        Log.d(TAG, "before async");
         call.enqueue(new Callback<EmployeeAPIContainer>() {
             @Override
             public void onResponse(Call<EmployeeAPIContainer> call, Response<EmployeeAPIContainer> response) {
