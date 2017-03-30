@@ -16,12 +16,17 @@ public interface PunchQueryService {
     );
 
     @GET("/sumtotalWebclock/api/service/findEmployeesAssignedToClock/{id}")
-    Call<List<String>> getEmployeesAssignedToClock (
-            @Path("id") String clockId
+    Call<List<Integer>> findEmployeesAssignedToClock (
+            @Path("id") int clockId
     );
 
     @POST("/sumtotalWebclock/api/service/submitPunchesByDate")
-    Call<Boolean> submitPunch(
+    Call<Boolean> submitPunchesByDate(
             @Body PunchModel punch
+    );
+
+    @GET("/sumtotalWebclock/api/service/findJobCodesByClockId/{id}")
+    Call<List<Integer>> findJobCodesByClockId (
+            @Path("id") int clockId
     );
 }
