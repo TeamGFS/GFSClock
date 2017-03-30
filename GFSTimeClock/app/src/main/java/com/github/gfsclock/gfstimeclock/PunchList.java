@@ -16,6 +16,31 @@ public class PunchList {
         startDate = start;
         endDate = end;
     };
+
+    public List<Integer> getId() {
+        return id;
+    }
+
+    public void setId(List<Integer> id) {
+        this.id = id;
+    }
+
+    public String getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
+
+    public String getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
+    }
+
     public PunchList(int inID) {
         id = new ArrayList<Integer>();
         id.add(inID);

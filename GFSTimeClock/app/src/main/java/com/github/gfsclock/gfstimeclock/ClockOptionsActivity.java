@@ -64,7 +64,7 @@ public class ClockOptionsActivity extends AppCompatActivity {
         getEmployeeInfo(intID);
 
     }
-    
+
     private void getPunchesID(int id) {
         SharedPreferences sPref = PreferenceManager.getDefaultSharedPreferences(Startup.getContext());
         String username = sPref.getString("username", "");
@@ -74,12 +74,13 @@ public class ClockOptionsActivity extends AppCompatActivity {
         call.enqueue(new Callback<List<PunchModel>>() {
             @Override
             public void onResponse(Call<List<PunchModel>> call, Response<List<PunchModel>> response) {
-                Log.d(TAG, "response worked!");
+                Log.d(TAG, "response worked!" + response.body().toString());
+                // TODO print response body
             }
 
             @Override
             public void onFailure(Call<List<PunchModel>> call, Throwable t) {
-                Log.d(TAG, "no punches");
+                Log.d(TAG, "no punches" + t.toString());
             }
         });
     }
