@@ -99,7 +99,7 @@ public class ClockOptionsActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     System.out.println("Response Successful");
                     // do things populate employee name and picture
-                    Log.d(TAG, response.toString());
+                    Log.d(TAG, response.body().toString());
                 } else {
                     // error or no connnection
                     System.out.println("Response not successful.\n" + response.toString());
