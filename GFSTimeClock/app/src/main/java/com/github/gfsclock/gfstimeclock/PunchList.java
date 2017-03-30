@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PunchList {
-    private List<Integer> id;
+    private List<String> employeIds;
 //    private String startDate;
 //    private String endDate;
 
@@ -17,12 +17,12 @@ public class PunchList {
 //        endDate = end;
 //    };
 
-    public List<Integer> getId() {
-        return id;
+    public List<String> getId() {
+        return employeIds;
     }
 
-    public void setId(List<Integer> id) {
-        this.id = id;
+    public void setId(List<String> id) {
+        this.employeIds = id;
     }
 
 //    public String getStartDate() {
@@ -41,9 +41,9 @@ public class PunchList {
 //        this.endDate = endDate;
 //    }
 
-    public PunchList(int inID) {
-        id = new ArrayList<Integer>();
-        id.add(inID);
+    public PunchList(String inID) {
+        employeIds = new ArrayList<String>();
+        employeIds.add(inID);
 //        startDate = start;
 //        endDate = end;
     };

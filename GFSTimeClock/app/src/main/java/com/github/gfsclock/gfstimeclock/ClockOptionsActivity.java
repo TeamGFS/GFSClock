@@ -70,7 +70,8 @@ public class ClockOptionsActivity extends AppCompatActivity {
         String username = sPref.getString("username", "");
         String password = sPref.getString("password", "");
         PunchQueryService punchClient = APIServiceGenerator.createService(PunchQueryService.class, username, password);
-        Call<List<PunchModel>> call = punchClient.getPunchesByID(new PunchList(id));
+        String employeeId = Integer.toString(id);
+        Call<List<PunchModel>> call = punchClient.getPunchesByID(new PunchList(employeeId));
         call.enqueue(new Callback<List<PunchModel>>() {
             @Override
             public void onResponse(Call<List<PunchModel>> call, Response<List<PunchModel>> response) {
