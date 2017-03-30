@@ -95,6 +95,9 @@ public class AdminActivity extends AppCompatActivity {
 
         settingEditor.apply();
 
+        // Apply API URL Changes
+        APIServiceGenerator.changeApiBaseURL(serverAddress);
+        InfoServiceGenerator.changeApiBaseURL(employeeAddress);
 
         Toast.makeText(this, "Settings saved.", Toast.LENGTH_LONG).show();
 
