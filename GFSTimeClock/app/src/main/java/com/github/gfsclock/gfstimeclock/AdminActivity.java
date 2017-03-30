@@ -17,7 +17,7 @@ public class AdminActivity extends AppCompatActivity {
     private String serverAddress;
     private String username;
     private String password;
-    private String clockId;
+    private int clockId;
 
     private EditText serverAddressField;
     private EditText usernameField;
@@ -36,7 +36,7 @@ public class AdminActivity extends AppCompatActivity {
         serverAddress = settingStore.getString("serverAddress", null);
         username = settingStore.getString("username", null);
         password = settingStore.getString("password", null);
-        clockId = settingStore.getString("clockId", null);
+        clockId = settingStore.getInt("clockId", null);
 
         // Load Text Fields, and populate them
         serverAddressField = (EditText) findViewById(R.id.ServerAddress);
@@ -75,12 +75,12 @@ public class AdminActivity extends AppCompatActivity {
         serverAddress = serverAddressField.getText().toString();
         username = usernameField.getText().toString();
         password = passwordField.getText().toString();
-        clockId = clockIdField.getText().toString();
+        clockId = Integer.parseInt(clockIdField.getText().toString());
 
         settingEditor.putString("serverAddress", serverAddress);
         settingEditor.putString("username", username);
         settingEditor.putString("password", password);
-        settingEditor.putString("clockId", clockId);
+        settingEditor.putInt("clockId", clockId);
 
         settingEditor.apply();
 
