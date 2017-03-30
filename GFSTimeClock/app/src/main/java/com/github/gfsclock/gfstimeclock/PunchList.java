@@ -16,5 +16,10 @@ public class PunchList {
         startDate = start;
         endDate = end;
     };
-
+    public PunchList(int inID) {
+        id = new ArrayList<Integer>();
+        id.add(inID);
+//        startDate = start;
+//        endDate = end;
+    };
 }

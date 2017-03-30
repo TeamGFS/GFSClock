@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 import retrofit2.Call;
@@ -26,7 +27,7 @@ public class ClockOptionsActivity extends AppCompatActivity {
 
     private int employeeID = 0;
     private APIMapper mapper = APIMapper.getInstance();
-    private ArrayList<PunchModel> punches;
+    private List<PunchModel> punches;
     private TextView employeeIdTextView;
     private static final String TAG = "ClockOptionsActivity";
 
@@ -56,23 +57,41 @@ public class ClockOptionsActivity extends AppCompatActivity {
         //String id = intent.getStringExtra("barcode");
         //employeeID = Integer.parseInt(id.substring(id.length() - 5, id.length()));
         employeeID = id;
-        punches = mapper.getPunchesID(employeeID);
+        getPunchesID(employeeID);
         employeeIdTextView = (TextView) findViewById(R.id.employeeIdTextView);
         employeeIdTextView.setText(Integer.toString(id));
         int intID = id;
         getEmployeeInfo(intID);
 
     }
+    
+    private void getPunchesID(int id) {
+        SharedPreferences sPref = PreferenceManager.getDefaultSharedPreferences(Startup.getContext());
+        String username = sPref.getString("username", "");
+        String password = sPref.getString("password", "");
+        PunchQueryService punchClient = APIServiceGenerator.createService(PunchQueryService.class, username, password);
+        Call<List<PunchModel>> call = punchClient.getPunchesByID(new PunchList(id));
+        call.enqueue(new Callback<List<PunchModel>>() {
+            @Override
+            public void onResponse(Call<List<PunchModel>> call, Response<List<PunchModel>> response) {
+                Log.d(TAG, "response worked!");
+            }
 
+            @Override
+            public void onFailure(Call<List<PunchModel>> call, Throwable t) {
+                Log.d(TAG, "no punches");
+            }
+        });
+    }
 
     private void getEmployeeInfo(int id) {
         SharedPreferences sPref = PreferenceManager.getDefaultSharedPreferences(Startup.getContext());
         String username = sPref.getString("username", "");
         String password = sPref.getString("password", "");
-        Log.d(TAG, "before service");
+//        Log.d(TAG, "before service");
         EmployeeQueryService infoClient = InfoServiceGenerator.createService(EmployeeQueryService.class, username, password);
         Call<EmployeeAPIContainer> call = infoClient.getData(id);
-        Log.d(TAG, "before async");
+//        Log.d(TAG, "before async");
         call.enqueue(new Callback<EmployeeAPIContainer>() {
             @Override
             public void onResponse(Call<EmployeeAPIContainer> call, Response<EmployeeAPIContainer> response) {
