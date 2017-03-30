@@ -74,7 +74,7 @@ public class ClockOptionsActivity extends AppCompatActivity {
         call.enqueue(new Callback<List<PunchModel>>() {
             @Override
             public void onResponse(Call<List<PunchModel>> call, Response<List<PunchModel>> response) {
-                Log.d(TAG, "response worked!" + response.body().toString());
+                Log.d(TAG, "response worked!" + response.toString());
                 // TODO print response body
             }
 
@@ -99,7 +99,7 @@ public class ClockOptionsActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     System.out.println("Response Successful");
                     // do things populate employee name and picture
-                    Log.d(TAG, response.body().toString());
+                    Log.d(TAG, response.message());
                 } else {
                     // error or no connnection
                     System.out.println("Response not successful.\n" + response.toString());
