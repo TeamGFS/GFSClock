@@ -19,7 +19,8 @@
         app:layout_constraintTop_toBottomOf="@+id/Username"
         android:layout_marginLeft="0dp"
         android:layout_marginRight="0dp"
-        app:layout_constraintLeft_toLeftOf="parent" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintHorizontal_bias="0.502" />
 
     <EditText
         android:id="@+id/Username"
@@ -45,8 +46,8 @@
         android:inputType="text|number"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ServerAddress"
-        app:layout_constraintHorizontal_bias="0.5" />
+        app:layout_constraintTop_toBottomOf="@+id/EmployeeServerAddress"
+        app:layout_constraintHorizontal_bias="0.502" />
 
     <Button
         android:id="@+id/Save"
@@ -63,14 +64,28 @@
         android:id="@+id/ServerAddress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
         android:ems="10"
         android:hint="@string/server_address"
-        android:inputType="textPersonName"
+        android:inputType="textUri"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="32dp"
-        app:layout_constraintHorizontal_bias="0.5" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/EmployeeServerAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/employee_address"
+        android:inputType="textUri"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+
+        android:layout_marginTop="31dp"
+        app:layout_constraintTop_toBottomOf="@+id/ServerAddress" />
 
     <Button
         android:id="@+id/cancel"
