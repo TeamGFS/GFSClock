@@ -18,9 +18,13 @@ import java.util.Date;
 import java.util.List;
 
 
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.jackson.JacksonConverterFactory;
 
 
 public class ClockOptionsActivity extends AppCompatActivity {
@@ -92,6 +96,23 @@ public class ClockOptionsActivity extends AppCompatActivity {
         String password = sPref.getString("password", "");
 //        Log.d(TAG, "before service");
         EmployeeQueryService infoClient = InfoServiceGenerator.createService(EmployeeQueryService.class, username, password);
+
+        // logging info
+        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+        OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+        httpClient.addInterceptor(logging);
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(PreferenceManager.getDefaultSharedPreferences(Startup.getContext()).
+                        getString("serverAddress", "https://sitwebclock.gfs.com/"))
+//                .addConverterFactory(GsonConverterFactory.create())  // TODO
+                .client(httpClient.build())
+                .build();
+
+
+
         Call<EmployeeAPIContainer> call = infoClient.getData(id);
 //        Log.d(TAG, "before async");
         call.enqueue(new Callback<EmployeeAPIContainer>() {
