@@ -11,10 +11,11 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ScanBadgeActivity">
+        <activity android:name=".ScanBadgeActivity"
+                  android:taskAffinity="com.github.gfsclock.gfstimeclock.ScanBadgeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
+                <action android:name=".ScanBadgeActivity"/>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -22,9 +23,11 @@
             android:name=".ClockOptionsActivity"
             android:screenOrientation="landscape" />
         <activity android:name=".AdminActivity"
-            android:label="@string/admin_app_name">
+                  android:taskAffinity="com.github.gfsclock.gfstimeclock.AdminActivity"
+                  android:label="@string/admin_app_name">
             <intent-filter android:label="@string/admin_app_name">
                 <action android:name="android.intent.action.MAIN" />
+                <action android:name=".AdminActivity"/>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
