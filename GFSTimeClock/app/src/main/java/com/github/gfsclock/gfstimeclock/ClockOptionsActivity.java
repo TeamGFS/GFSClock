@@ -80,7 +80,6 @@ public class ClockOptionsActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<PunchModel>> call, Response<List<PunchModel>> response) {
                 Log.d(TAG, "response worked!" + response.toString());
-                // TODO print response body
             }
 
             @Override
@@ -97,12 +96,7 @@ public class ClockOptionsActivity extends AppCompatActivity {
 //        Log.d(TAG, "before service");
         EmployeeQueryService infoClient = InfoServiceGenerator.createService(EmployeeQueryService.class, username, password);
 
-        // logging info
-        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
 
-        OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
-        httpClient.addInterceptor(logging);
 
         // commenting this out because we build the retrofit call in the service AFAIK
 //        Retrofit retrofit = new Retrofit.Builder()
