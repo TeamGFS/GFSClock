@@ -104,12 +104,13 @@ public class ClockOptionsActivity extends AppCompatActivity {
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
         httpClient.addInterceptor(logging);
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(PreferenceManager.getDefaultSharedPreferences(Startup.getContext()).
-                        getString("serverAddress", "https://sitwebclock.gfs.com/"))
-//                .addConverterFactory(GsonConverterFactory.create())  // TODO
-                .client(httpClient.build())
-                .build();
+        // commenting this out because we build the retrofit call in the service AFAIK
+//        Retrofit retrofit = new Retrofit.Builder()
+//                .baseUrl(PreferenceManager.getDefaultSharedPreferences(Startup.getContext()).
+//                        getString("serverAddress", "https://sitwebclock.gfs.com/"))
+////                .addConverterFactory(GsonConverterFactory.create())  // TODO
+//                .client(httpClient.build())
+//                .build();
 
 
 
