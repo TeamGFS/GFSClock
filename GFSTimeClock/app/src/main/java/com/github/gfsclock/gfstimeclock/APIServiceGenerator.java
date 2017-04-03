@@ -44,7 +44,6 @@ public class APIServiceGenerator {
                 HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
                 logging.setLevel(HttpLoggingInterceptor.Level.BODY);
 
-                OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
                 httpClient.addInterceptor(logging);
 
                 builder.client(httpClient.build());
