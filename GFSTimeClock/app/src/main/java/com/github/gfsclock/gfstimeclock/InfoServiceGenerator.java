@@ -11,7 +11,7 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 public class InfoServiceGenerator {
     //private static final String BASE_URL = "https://mysit.gfs.com";
     private static String apiBaseURL = PreferenceManager.getDefaultSharedPreferences(Startup.getContext()).
-            getString("serverAddress", "https://mysit.gfs.com");
+            getString("employeeAddress", "https://mysit.gfs.com");
     private static Retrofit.Builder builder = new Retrofit.Builder().baseUrl(apiBaseURL)
             .addConverterFactory(JacksonConverterFactory.create());
     private static Retrofit retrofit = builder.build();
