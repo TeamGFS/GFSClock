@@ -18,7 +18,7 @@ public class AdminActivity extends AppCompatActivity {
     private String employeeAddress;
     private String username;
     private String password;
-    private String clockId;
+    private Integer clockId;
 
     private EditText serverAddressField;
     private EditText employeeAddressField;
@@ -39,7 +39,7 @@ public class AdminActivity extends AppCompatActivity {
         employeeAddress = settingStore.getString("employeeAddress", null);
         username = settingStore.getString("username", null);
         password = settingStore.getString("password", null);
-        clockId = settingStore.getString("clockId", "0"); // this is kinda silly
+        clockId = settingStore.getInt("clockId", 0); // this is kinda silly
 
         // Load Text Fields, and populate them
         serverAddressField = (EditText) findViewById(R.id.ServerAddress);
@@ -51,8 +51,8 @@ public class AdminActivity extends AppCompatActivity {
         passwordField = (EditText) findViewById(R.id.Password);
         passwordField.setText(password, TextView.BufferType.EDITABLE);
         clockIdField = (EditText) findViewById(R.id.ClockID);
-        if(clockId.equals("0")){
-            clockIdField.setText(clockId, TextView.BufferType.EDITABLE);
+        if(clockId == 0){
+            clockIdField.setText(clockId.toString(), TextView.BufferType.EDITABLE);
         } else {
             clockIdField.setText(null, TextView.BufferType.EDITABLE);
         }
@@ -85,13 +85,13 @@ public class AdminActivity extends AppCompatActivity {
         employeeAddress = employeeAddressField.getText().toString();
         username = usernameField.getText().toString();
         password = passwordField.getText().toString();
-        clockId = clockIdField.getText().toString();
+        clockId = Integer.parseInt(clockIdField.getText().toString());
 
         settingEditor.putString("serverAddress", serverAddress);
         settingEditor.putString("employeeAddress", employeeAddress);
         settingEditor.putString("username", username);
         settingEditor.putString("password", password);
-        settingEditor.putInt("clockId", Integer.parseInt(clockId));
+        settingEditor.putInt("clockId", clockId);
 
         settingEditor.apply();
 

@@ -57,11 +57,12 @@ public class ClockOptionsActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         int id = intent.getIntExtra("barcode", 0);
-        System.out.println("Clocked ID was" + id);
         //String id = intent.getStringExtra("barcode");
         //employeeID = Integer.parseInt(id.substring(id.length() - 5, id.length()));
         employeeID = id;
-        getPunchesID(employeeID);
+
+        getEmployeeInfo(employeeID);
+
         employeeIdTextView = (TextView) findViewById(R.id.employeeIdTextView);
         employeeIdTextView.setText(Integer.toString(id));
         int intID = id;
@@ -80,6 +81,7 @@ public class ClockOptionsActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<PunchModel>> call, Response<List<PunchModel>> response) {
                 Log.d(TAG, "response worked!" + response.toString());
+                punches = response.body();
             }
 
             @Override
@@ -90,6 +92,7 @@ public class ClockOptionsActivity extends AppCompatActivity {
     }
 
     private void getEmployeeInfo(int id) {
+        final int employee = id;
         SharedPreferences sPref = PreferenceManager.getDefaultSharedPreferences(Startup.getContext());
         String username = sPref.getString("username", "");
         String password = sPref.getString("password", "");
@@ -100,6 +103,7 @@ public class ClockOptionsActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<EmployeeAPIContainer> call, Response<EmployeeAPIContainer> response) {
                 if (response.isSuccessful()) {
+                    getPunchesID(employee);
                     System.out.println("Response Successful");
                     // do things populate employee name and picture
                     Log.d(TAG, response.message());
