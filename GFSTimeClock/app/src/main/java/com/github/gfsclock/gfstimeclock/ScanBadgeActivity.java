@@ -1,7 +1,9 @@
 package com.github.gfsclock.gfstimeclock;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.preference.DialogPreference;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -34,8 +36,17 @@ public class ScanBadgeActivity extends AppCompatActivity {
             scanBadge.setEnabled(false);
             manualInput.setEnabled(false);
             // TODO make a dialog to describe how to set config
-            
-
+            AlertDialog.Builder builder = new AlertDialog.Builder(ScanBadgeActivity.this);
+            builder.setTitle("Configuration error");
+            builder.setMessage(getString(R.string.config_error));
+            builder.setPositiveButton(getString(android.R.string.ok), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+            AlertDialog dialog = builder.create();
+            dialog.show();
         }
 
 
