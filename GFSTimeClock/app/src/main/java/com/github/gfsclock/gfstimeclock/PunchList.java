@@ -17,11 +17,11 @@ public class PunchList {
 //        endDate = end;
 //    };
 
-    public List<String> getId() {
+    public List<String> getemployeeIds() {
         return employeeIds;
     }
 
-    public void setId(List<String> id) {
+    public void setemployeeIds(List<String> id) {
         this.employeeIds= id;
     }
 
