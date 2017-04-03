@@ -1,6 +1,11 @@
 package com.github.gfsclock.gfstimeclock;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.DialogPreference;
+import android.preference.PreferenceManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,11 +21,34 @@ import com.google.zxing.integration.android.IntentResult;
 public class ScanBadgeActivity extends AppCompatActivity {
 
     private String barcode;
+    private boolean prefsexist;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scan_badge);
+
+        SharedPreferences settingStore = PreferenceManager.getDefaultSharedPreferences(Startup.getContext());
+        prefsexist = settingStore.contains("serverAddress") && settingStore.contains("username") && settingStore.contains("password");
+        if(!prefsexist) {
+            Button scanBadge = (Button) findViewById(R.id.scan);
+            Button manualInput = (Button) findViewById(R.id.manual);
+            scanBadge.setEnabled(false);
+            manualInput.setEnabled(false);
+            // TODO make a dialog to describe how to set config
+            AlertDialog.Builder builder = new AlertDialog.Builder(ScanBadgeActivity.this);
+            builder.setTitle("Configuration error");
+            builder.setMessage(getString(R.string.config_error));
+            builder.setPositiveButton(getString(android.R.string.ok), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        }
+
 
         Button adminButton = (Button) findViewById(R.id.admin);
         adminButton.setEnabled(false);
