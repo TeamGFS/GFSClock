@@ -38,6 +38,7 @@ public class APIServiceGenerator {
         if(!TextUtils.isEmpty(authToken)) {
             AuthenticationInterceptor interceptor = new AuthenticationInterceptor(authToken);
             if(!httpClient.interceptors().contains(interceptor)) {
+
                 httpClient.addInterceptor(interceptor);
 
                 // logging info

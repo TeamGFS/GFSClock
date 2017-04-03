@@ -93,23 +93,9 @@ public class ClockOptionsActivity extends AppCompatActivity {
         SharedPreferences sPref = PreferenceManager.getDefaultSharedPreferences(Startup.getContext());
         String username = sPref.getString("username", "");
         String password = sPref.getString("password", "");
-//        Log.d(TAG, "before service");
         EmployeeQueryService infoClient = InfoServiceGenerator.createService(EmployeeQueryService.class, username, password);
 
-
-
-        // commenting this out because we build the retrofit call in the service AFAIK
-//        Retrofit retrofit = new Retrofit.Builder()
-//                .baseUrl(PreferenceManager.getDefaultSharedPreferences(Startup.getContext()).
-//                        getString("serverAddress", "https://sitwebclock.gfs.com/"))
-////                .addConverterFactory(GsonConverterFactory.create())  // TODO
-//                .client(httpClient.build())
-//                .build();
-
-
-
         Call<EmployeeAPIContainer> call = infoClient.getData(id);
-//        Log.d(TAG, "before async");
         call.enqueue(new Callback<EmployeeAPIContainer>() {
             @Override
             public void onResponse(Call<EmployeeAPIContainer> call, Response<EmployeeAPIContainer> response) {
@@ -130,62 +116,6 @@ public class ClockOptionsActivity extends AppCompatActivity {
             }
         });
     }
-
-
-//    // TODO this might have an error...
-//    @Override
-//    public void onStart() {
-//        super.onStart();
-//        // build switch statement to make buttons un-clickable depending on state
-//        String docket = punches.get(punches.size() - 1).getDocket();
-//        switch (docket) {
-//            // last activity was clockIn -> disable buttons to clockIn, endBreak, endLunch
-//            case "F1":
-//                clockinButton.setEnabled(false);
-//                breakInButton.setEnabled(false);
-//                lunchInButton.setEnabled(false);
-//                break;
-//            // last activity was breakOut -> disable all but breakInButton
-//            case "F2":
-//                clockinButton.setEnabled(false);
-//                clockOutButton.setEnabled(false);
-//                breakOutButton.setEnabled(false);
-//                lunchInButton.setEnabled(false);
-//                lunchOutButton.setEnabled(false);
-//                break;
-//            // last activity was lunchOut -> disable all but lunchInButton
-//            case "F3":
-//                clockinButton.setEnabled(false);
-//                clockOutButton.setEnabled(false);
-//                breakInButton.setEnabled(false);
-//                breakOutButton.setEnabled(false);
-//                lunchOutButton.setEnabled(false);
-//                break;
-//            case "F4":
-//                // goofy case - job change code not sure how to handle this yet
-//                break;
-//            // last activity was clockOut -> disable all but clockIn
-//            case "F5":
-//                clockOutButton.setEnabled(false);
-//                breakInButton.setEnabled(false);
-//                breakOutButton.setEnabled(false);
-//                lunchOutButton.setEnabled(false);
-//                lunchInButton.setEnabled(false);
-//                break;
-//            // last activity was breakIn -> disable clockIn, breakIn, lunchIn
-//            case "F6":
-//                clockinButton.setEnabled(false);
-//                breakInButton.setEnabled(false);
-//                lunchInButton.setEnabled(false);
-//                break;
-//            // last activity was lunchIn -> disable lunchIn, clockIn, breakIn
-//            case "F7":
-//                lunchInButton.setEnabled(false);
-//                clockinButton.setEnabled(false);
-//                breakInButton.setEnabled(false);
-//                break;
-//        }
-//    }
 
     /**
      * Rather than transition back to the ManualInputActivity we must override this onBackPressed() method.
