@@ -15,18 +15,23 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.jackson.JacksonConverterFactory;
 
 
 public class ClockOptionsActivity extends AppCompatActivity {
 
     private int employeeID = 0;
     private APIMapper mapper = APIMapper.getInstance();
-    private ArrayList<PunchModel> punches;
+    private List<PunchModel> punches;
     private TextView employeeIdTextView;
     private static final String TAG = "ClockOptionsActivity";
 
@@ -56,7 +61,7 @@ public class ClockOptionsActivity extends AppCompatActivity {
         //String id = intent.getStringExtra("barcode");
         //employeeID = Integer.parseInt(id.substring(id.length() - 5, id.length()));
         employeeID = id;
-        punches = mapper.getPunchesID(employeeID);
+        getPunchesID(employeeID);
         employeeIdTextView = (TextView) findViewById(R.id.employeeIdTextView);
         employeeIdTextView.setText(Integer.toString(id));
         int intID = id;
@@ -64,22 +69,40 @@ public class ClockOptionsActivity extends AppCompatActivity {
 
     }
 
+    private void getPunchesID(int id) {
+        SharedPreferences sPref = PreferenceManager.getDefaultSharedPreferences(Startup.getContext());
+        String username = sPref.getString("username", "");
+        String password = sPref.getString("password", "");
+        PunchQueryService punchClient = APIServiceGenerator.createService(PunchQueryService.class, username, password);
+        String employeeId = Integer.toString(id);
+        Call<List<PunchModel>> call = punchClient.getPunchesByID(new PunchList(employeeId));
+        call.enqueue(new Callback<List<PunchModel>>() {
+            @Override
+            public void onResponse(Call<List<PunchModel>> call, Response<List<PunchModel>> response) {
+                Log.d(TAG, "response worked!" + response.toString());
+            }
+
+            @Override
+            public void onFailure(Call<List<PunchModel>> call, Throwable t) {
+                Log.d(TAG, "no punches" + t.toString());
+            }
+        });
+    }
 
     private void getEmployeeInfo(int id) {
         SharedPreferences sPref = PreferenceManager.getDefaultSharedPreferences(Startup.getContext());
         String username = sPref.getString("username", "");
         String password = sPref.getString("password", "");
-        Log.d(TAG, "before service");
         EmployeeQueryService infoClient = InfoServiceGenerator.createService(EmployeeQueryService.class, username, password);
+
         Call<EmployeeAPIContainer> call = infoClient.getData(id);
-        Log.d(TAG, "before async");
         call.enqueue(new Callback<EmployeeAPIContainer>() {
             @Override
             public void onResponse(Call<EmployeeAPIContainer> call, Response<EmployeeAPIContainer> response) {
                 if (response.isSuccessful()) {
                     System.out.println("Response Successful");
                     // do things populate employee name and picture
-                    Log.d(TAG, response.toString());
+                    Log.d(TAG, response.message());
                 } else {
                     // error or no connnection
                     System.out.println("Response not successful.\n" + response.toString());
@@ -93,62 +116,6 @@ public class ClockOptionsActivity extends AppCompatActivity {
             }
         });
     }
-
-
-//    // TODO this might have an error...
-//    @Override
-//    public void onStart() {
-//        super.onStart();
-//        // build switch statement to make buttons un-clickable depending on state
-//        String docket = punches.get(punches.size() - 1).getDocket();
-//        switch (docket) {
-//            // last activity was clockIn -> disable buttons to clockIn, endBreak, endLunch
-//            case "F1":
-//                clockinButton.setEnabled(false);
-//                breakInButton.setEnabled(false);
-//                lunchInButton.setEnabled(false);
-//                break;
-//            // last activity was breakOut -> disable all but breakInButton
-//            case "F2":
-//                clockinButton.setEnabled(false);
-//                clockOutButton.setEnabled(false);
-//                breakOutButton.setEnabled(false);
-//                lunchInButton.setEnabled(false);
-//                lunchOutButton.setEnabled(false);
-//                break;
-//            // last activity was lunchOut -> disable all but lunchInButton
-//            case "F3":
-//                clockinButton.setEnabled(false);
-//                clockOutButton.setEnabled(false);
-//                breakInButton.setEnabled(false);
-//                breakOutButton.setEnabled(false);
-//                lunchOutButton.setEnabled(false);
-//                break;
-//            case "F4":
-//                // goofy case - job change code not sure how to handle this yet
-//                break;
-//            // last activity was clockOut -> disable all but clockIn
-//            case "F5":
-//                clockOutButton.setEnabled(false);
-//                breakInButton.setEnabled(false);
-//                breakOutButton.setEnabled(false);
-//                lunchOutButton.setEnabled(false);
-//                lunchInButton.setEnabled(false);
-//                break;
-//            // last activity was breakIn -> disable clockIn, breakIn, lunchIn
-//            case "F6":
-//                clockinButton.setEnabled(false);
-//                breakInButton.setEnabled(false);
-//                lunchInButton.setEnabled(false);
-//                break;
-//            // last activity was lunchIn -> disable lunchIn, clockIn, breakIn
-//            case "F7":
-//                lunchInButton.setEnabled(false);
-//                clockinButton.setEnabled(false);
-//                breakInButton.setEnabled(false);
-//                break;
-//        }
-//    }
 
     /**
      * Rather than transition back to the ManualInputActivity we must override this onBackPressed() method.

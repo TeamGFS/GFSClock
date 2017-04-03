@@ -5,6 +5,7 @@ import android.text.TextUtils;
 
 import okhttp3.Credentials;
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
@@ -37,7 +38,14 @@ public class APIServiceGenerator {
         if(!TextUtils.isEmpty(authToken)) {
             AuthenticationInterceptor interceptor = new AuthenticationInterceptor(authToken);
             if(!httpClient.interceptors().contains(interceptor)) {
+
                 httpClient.addInterceptor(interceptor);
+
+                // logging info
+                HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+                logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+                httpClient.addInterceptor(logging);
 
                 builder.client(httpClient.build());
                 retrofit = builder.build();
