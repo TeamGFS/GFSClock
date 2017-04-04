@@ -4,27 +4,22 @@ package com.github.gfsclock.gfstimeclock;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.jackson.JacksonConverterFactory;
 
 
 public class ClockOptionsActivity extends AppCompatActivity {
@@ -90,6 +85,43 @@ public class ClockOptionsActivity extends AppCompatActivity {
             }
         });
     }
+    /**
+     * Clocks employee in on button press.
+     *
+     * @param view
+     */
+    public void clockIn(View view) {
+        submitPunches(employeeID, "F1");
+        backToScanBadge();
+    }
+
+    private void submitPunches(int id, String docket) {
+
+        SharedPreferences sPref = PreferenceManager.getDefaultSharedPreferences(Startup.getContext());
+        String username = sPref.getString("username", "");
+        String password = sPref.getString("password", "");
+        PunchQueryService punchClient = APIServiceGenerator.createService(PunchQueryService.class, username, password);
+        String employeeId = Integer.toString(id);
+        PunchModel punch = new PunchModel();
+        punch.setDocket(docket);
+        punch.setTimeStamp(new Date());
+
+
+        // TODO stopping point figure out how to call this correctly.
+
+        Call<ResponseBody> call = punchClient.submitPunchesByDate(punch);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                Log.d(TAG, "punch worked!?!? !" + response.toString());
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.d(TAG, "no punches" + t.toString());
+            }
+        });
+    }
 
     private void getEmployeeInfo(int id) {
         final int employee = id;
@@ -107,6 +139,7 @@ public class ClockOptionsActivity extends AppCompatActivity {
                     System.out.println("Response Successful");
                     // do things populate employee name and picture
                     Log.d(TAG, response.message());
+                    return;
                 } else {
                     // error or no connnection
                     System.out.println("Response not successful.\n" + response.toString());
@@ -130,6 +163,17 @@ public class ClockOptionsActivity extends AppCompatActivity {
     }
 
 
+    public void setValidation(){
+        PunchModel latest = punches.get(punches.size() - 1);
+        String lastPunch = latest.getDocket();
+        // bind buttons
+//    Button clockinButton = (Button) findViewById(R.id.ClockInButton);
+//    Button clockOutButton = (Button) findViewById(R.id.ClockOutButton);
+//    Button breakInButton = (Button) findViewById(R.id.BreakInButton);
+//    Button breakOutButton = (Button) findViewById(R.id.BreakOutButton);
+//    Button lunchInButton = (Button) findViewById(R.id.LunchInButton);
+//    Button lunchOutButton = (Button) findViewById(R.id.LunchOutButton);
+    }
 
     /**
      * Shows alert dialog with punch history on button press.
@@ -156,15 +200,7 @@ public class ClockOptionsActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    /**
-     * Clocks employee in on button press.
-     *
-     * @param view
-     */
-    public void clockIn(View view) {
-        mapper.punch(employeeID, "F1", new Date());
-        backToScanBadge();
-    }
+
 
     /**
      * Clocks employee out for break on button press.

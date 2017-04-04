@@ -3,6 +3,7 @@ package com.github.gfsclock.gfstimeclock;
 
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -21,7 +22,7 @@ public interface PunchQueryService {
     );
 
     @POST("/sumtotalWebclock/api/service/submitPunchesByDate")
-    Call<Boolean> submitPunchesByDate(
+    Call<ResponseBody> submitPunchesByDate(
             @Body PunchModel punch
     );
 
