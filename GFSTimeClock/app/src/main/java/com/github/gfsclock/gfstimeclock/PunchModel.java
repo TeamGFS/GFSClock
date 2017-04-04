@@ -16,9 +16,9 @@ public class PunchModel extends RealmObject{
 
     private int payroll;
     private String docket;
-    private String jobCode; // used for job change
+//    private String jobCode; // used for job change
     private Date timeStamp;
-    private String department; // used for job change
+//    private String department; // used for job change
 
     public int getpayroll() {
         return payroll;
@@ -36,13 +36,13 @@ public class PunchModel extends RealmObject{
         this.docket = docket;
     }
 
-    public String getJobCode() {
-        return jobCode;
-    }
+//    public String getJobCode() {
+//        return jobCode;
+//    }
 
-    public void setJobCode(String jobCode) {
-        this.jobCode = jobCode;
-    }
+//    public void setJobCode(String jobCode) {
+//        this.jobCode = jobCode;
+//    }
 
     public Date getTimeStamp() {
         return timeStamp;
@@ -52,11 +52,11 @@ public class PunchModel extends RealmObject{
         this.timeStamp = timeStamp;
     }
 
-    public String getDepartment() {
-        return department;
-    }
+//    public String getDepartment() {
+//        return department;
+//    }
 
-    public void setDepartment(String department) {
-        this.department = department;
-    }
+//    public void setDepartment(String department) {
+//        this.department = department;
+//    }
 }

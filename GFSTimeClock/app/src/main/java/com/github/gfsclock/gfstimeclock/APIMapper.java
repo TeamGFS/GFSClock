@@ -55,7 +55,7 @@ public class APIMapper {
         // initialize punches with mocked up data
         realm.beginTransaction();
         PunchModel punch1 = realm.createObject(PunchModel.class);
-        punch1.setId(29313);
+        punch1.setpayroll(29313);
         punch1.setDocket("F1");
         punch1.setTimeStamp(new Date());
         realm.commitTransaction();
@@ -87,7 +87,7 @@ public class APIMapper {
 
         realm.beginTransaction();
         PunchModel n = realm.createObject(PunchModel.class);
-        n.setId(eID);
+        n.setpayroll(eID);
         n.setDocket(docket);
         n.setTimeStamp(time);
         realm.commitTransaction();

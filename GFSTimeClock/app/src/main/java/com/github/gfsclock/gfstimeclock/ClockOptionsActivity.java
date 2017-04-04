@@ -30,13 +30,6 @@ public class ClockOptionsActivity extends AppCompatActivity {
     private TextView employeeIdTextView;
     private static final String TAG = "ClockOptionsActivity";
 
-    // bind buttons
-//    Button clockinButton = (Button) findViewById(R.id.ClockInButton);
-//    Button clockOutButton = (Button) findViewById(R.id.ClockOutButton);
-//    Button breakInButton = (Button) findViewById(R.id.BreakInButton);
-//    Button breakOutButton = (Button) findViewById(R.id.BreakOutButton);
-//    Button lunchInButton = (Button) findViewById(R.id.LunchInButton);
-//    Button lunchOutButton = (Button) findViewById(R.id.LunchOutButton);
 
     /**
      * Entry point to the ClockOptionsActivity activity, handles result from barcode intent and
@@ -49,13 +42,9 @@ public class ClockOptionsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         System.out.println("ClockOptionsActivity");
         setContentView(R.layout.activity_clock_options);
-
         Intent intent = getIntent();
         int id = intent.getIntExtra("barcode", 0);
-        //String id = intent.getStringExtra("barcode");
-        //employeeID = Integer.parseInt(id.substring(id.length() - 5, id.length()));
         employeeID = id;
-
         getEmployeeInfo(employeeID);
 
         employeeIdTextView = (TextView) findViewById(R.id.employeeIdTextView);
@@ -65,6 +54,11 @@ public class ClockOptionsActivity extends AppCompatActivity {
 
     }
 
+
+    /**
+     * Obtain initial punch history of a given employee (id).
+     * @param id
+     */
     private void getPunchesID(int id) {
         SharedPreferences sPref = PreferenceManager.getDefaultSharedPreferences(Startup.getContext());
         String username = sPref.getString("username", "");
@@ -85,6 +79,7 @@ public class ClockOptionsActivity extends AppCompatActivity {
             }
         });
     }
+
     /**
      * Clocks employee in on button press.
      *
@@ -106,9 +101,6 @@ public class ClockOptionsActivity extends AppCompatActivity {
         punch.setDocket(docket);
         punch.setTimeStamp(new Date());
 
-
-        // TODO stopping point figure out how to call this correctly.
-
         Call<ResponseBody> call = punchClient.submitPunchesByDate(punch);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
@@ -128,8 +120,8 @@ public class ClockOptionsActivity extends AppCompatActivity {
         SharedPreferences sPref = PreferenceManager.getDefaultSharedPreferences(Startup.getContext());
         String username = sPref.getString("username", "");
         String password = sPref.getString("password", "");
+        employeeIdTextView = (TextView) findViewById(R.id.employeeIdTextView);
         EmployeeQueryService infoClient = InfoServiceGenerator.createService(EmployeeQueryService.class, username, password);
-
         Call<EmployeeAPIContainer> call = infoClient.getData(id);
         call.enqueue(new Callback<EmployeeAPIContainer>() {
             @Override
