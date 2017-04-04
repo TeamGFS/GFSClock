@@ -14,18 +14,18 @@ public class PunchModel extends RealmObject{
     "F7" = End Lunch
      */
 
-    private int id;
+    private int payroll;
     private String docket;
     private String jobCode; // used for job change
     private Date timeStamp;
     private String department; // used for job change
 
-    public int getId() {
-        return id;
+    public int getpayroll() {
+        return payroll;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setpayroll(int id) {
+        this.payroll = id;
     }
 
     public String getDocket() {
