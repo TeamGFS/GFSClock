@@ -37,6 +37,10 @@ public class InfoServiceGenerator {
             AuthenticationInterceptor interceptor = new AuthenticationInterceptor(authToken);
             if(!httpClient.interceptors().contains(interceptor)) {
                 httpClient.addInterceptor(interceptor);
+                
+                HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+                logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+                httpClient.addInterceptor(logging);
 
                 builder.client(httpClient.build());
                 retrofit = builder.build();
