@@ -57,7 +57,7 @@ public class APIMapper {
         PunchModel punch1 = realm.createObject(PunchModel.class);
         punch1.setpayroll(29313);
         punch1.setDocket("F1");
-        punch1.setTimeStamp(new Date());
+        punch1.setTimestamp(new Date());
         realm.commitTransaction();
 
         realmSetdown();
@@ -89,7 +89,7 @@ public class APIMapper {
         PunchModel n = realm.createObject(PunchModel.class);
         n.setpayroll(eID);
         n.setDocket(docket);
-        n.setTimeStamp(time);
+        n.setTimestamp(time);
         realm.commitTransaction();
 
         realmSetdown();

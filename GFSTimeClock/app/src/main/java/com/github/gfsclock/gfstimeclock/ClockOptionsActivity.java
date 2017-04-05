@@ -100,6 +100,7 @@ public class ClockOptionsActivity extends AppCompatActivity {
 
         PunchModel punch = new PunchModel();
         punch.setDocket(docket);
+        punch.setpayroll(id);
         punch.setTimestamp(new Date());
 
         Call<ResponseBody> call = punchClient.submitPunchesByDate(punch);
@@ -180,7 +181,7 @@ public class ClockOptionsActivity extends AppCompatActivity {
         // TODO filter history for only last 3 days
         String punchHistory = "";
         for (int i = 0; i < punches.size(); i++) {
-            punchHistory += punches.get(i).getDocket() + " " + punches.get(i).getTimeStamp() + "\n";
+            punchHistory += punches.get(i).getDocket() + " " + punches.get(i).getTimestamp() + "\n";
         }
         builder.setMessage(punchHistory);
         String positiveText = getString(android.R.string.ok);

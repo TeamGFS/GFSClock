@@ -18,7 +18,7 @@ public class EmployeeAPIContainer {
         this.pictureUrl = pictureUrl;
     }
     
-    public string getPictureUrl() {
+    public String getPictureUrl() {
         return pictureUrl;
     }
 }
