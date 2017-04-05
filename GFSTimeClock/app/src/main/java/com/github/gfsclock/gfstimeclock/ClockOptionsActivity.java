@@ -65,7 +65,8 @@ public class ClockOptionsActivity extends AppCompatActivity {
         String password = sPref.getString("password", "");
         PunchQueryService punchClient = APIServiceGenerator.createService(PunchQueryService.class, username, password);
         String employeeId = Integer.toString(id);
-        Call<List<PunchModel>> call = punchClient.getPunchesByID(new PunchList(employeeId));
+        Date punchDate = new Date();
+        Call<List<PunchModel>> call = punchClient.getPunchesByID(new PunchList(employeeId, punchDate));
         call.enqueue(new Callback<List<PunchModel>>() {
             @Override
             public void onResponse(Call<List<PunchModel>> call, Response<List<PunchModel>> response) {
@@ -96,7 +97,7 @@ public class ClockOptionsActivity extends AppCompatActivity {
         String username = sPref.getString("username", "");
         String password = sPref.getString("password", "");
         PunchQueryService punchClient = APIServiceGenerator.createService(PunchQueryService.class, username, password);
-        String employeeId = Integer.toString(id);
+
         PunchModel punch = new PunchModel();
         punch.setDocket(docket);
         punch.setTimeStamp(new Date());
@@ -106,6 +107,7 @@ public class ClockOptionsActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 Log.d(TAG, "punch worked!?!? !" + response.toString());
+
             }
 
             @Override
