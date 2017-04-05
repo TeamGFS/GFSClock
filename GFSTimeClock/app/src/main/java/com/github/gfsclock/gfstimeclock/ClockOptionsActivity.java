@@ -100,7 +100,7 @@ public class ClockOptionsActivity extends AppCompatActivity {
 
         PunchModel punch = new PunchModel();
         punch.setDocket(docket);
-        punch.setTimeStamp(new Date());
+        punch.setTimestamp(new Date());
 
         Call<ResponseBody> call = punchClient.submitPunchesByDate(punch);
         call.enqueue(new Callback<ResponseBody>() {
