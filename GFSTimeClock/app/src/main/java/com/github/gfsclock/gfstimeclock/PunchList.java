@@ -27,31 +27,21 @@ public class PunchList {
         this.employeeIds= id;
     }
 
-//    public String getStartDate() {
-//        return startDate;
-//    }
-//
-//    public void setStartDate(String startDate) {
-//        this.startDate = startDate;
-//    }
-//
-//    public String getEndDate() {
-//        return endDate;
-//    }
-//
-//    public void setEndDate(String endDate) {
-//        this.endDate = endDate;
-//    }
+    public Date getStartDate() {
+        return startDate;
+    }
 
-    public PunchList(String inID, Date start) {
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public PunchList(String inID, Date end) {
         employeeIds = new ArrayList<String>();
         employeeIds.add(inID);
-        startDate = start;
+        endDate = end;
         Calendar cal = Calendar.getInstance();
-        cal.setTime(start);
+        cal.setTime(end);
         cal.add(Calendar.DATE, -3);
-        endDate = cal.getTime();
-//        startDate = start;
-//        endDate = end;
+        startDate = cal.getTime();
     }
 }

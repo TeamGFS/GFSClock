@@ -196,14 +196,13 @@ public class ClockOptionsActivity extends AppCompatActivity {
     }
 
 
-
     /**
      * Clocks employee out for break on button press.
      *
      * @param view
      */
     public void breakOut(View view) {
-        mapper.punch(employeeID, "F2", new Date());
+        submitPunches(employeeID, "F2");
         backToScanBadge();
     }
 
@@ -213,7 +212,7 @@ public class ClockOptionsActivity extends AppCompatActivity {
      * @param view
      */
     public void lunchOut(View view) {
-        mapper.punch(employeeID, "F3", new Date());
+        submitPunches(employeeID, "F3");
         backToScanBadge();
     }
 
@@ -223,7 +222,7 @@ public class ClockOptionsActivity extends AppCompatActivity {
      * @param view
      */
     public void clockOut(View view) {
-        mapper.punch(employeeID, "F5", new Date());
+        submitPunches(employeeID, "F5");
         backToScanBadge();
     }
 
@@ -233,7 +232,7 @@ public class ClockOptionsActivity extends AppCompatActivity {
      * @param view
      */
     public void breakIn(View view) {
-        mapper.punch(employeeID, "F6", new Date());
+        submitPunches(employeeID, "F6");
         backToScanBadge();
     }
 
@@ -243,7 +242,7 @@ public class ClockOptionsActivity extends AppCompatActivity {
      * @param view
      */
     public void lunchIn(View view) {
-        mapper.punch(employeeID, "F7", new Date());
+        submitPunches(employeeID, "F7");
         backToScanBadge();
     }
 
