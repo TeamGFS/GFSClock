@@ -11,7 +11,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.Date;
 import java.util.List;
@@ -28,6 +31,7 @@ public class ClockOptionsActivity extends AppCompatActivity {
     private APIMapper mapper = APIMapper.getInstance();
     private List<PunchModel> punches;
     private TextView employeeIdTextView;
+    private ImageView employeePic;
     private static final String TAG = "ClockOptionsActivity";
 
 
@@ -46,9 +50,9 @@ public class ClockOptionsActivity extends AppCompatActivity {
         int id = intent.getIntExtra("barcode", 0);
         employeeID = id;
         getEmployeeInfo(employeeID);
-
+        employeePic = (ImageView) findViewById(R.id.userImage);
         employeeIdTextView = (TextView) findViewById(R.id.employeeIdTextView);
-        employeeIdTextView.setText(Integer.toString(id));
+
         int intID = id;
         getEmployeeInfo(intID);
 
@@ -123,13 +127,17 @@ public class ClockOptionsActivity extends AppCompatActivity {
         SharedPreferences sPref = PreferenceManager.getDefaultSharedPreferences(Startup.getContext());
         String username = sPref.getString("username", "");
         String password = sPref.getString("password", "");
-        employeeIdTextView = (TextView) findViewById(R.id.employeeIdTextView);
+
         EmployeeQueryService infoClient = InfoServiceGenerator.createService(EmployeeQueryService.class, username, password);
         Call<EmployeeAPIContainer> call = infoClient.getData(id);
         call.enqueue(new Callback<EmployeeAPIContainer>() {
             @Override
             public void onResponse(Call<EmployeeAPIContainer> call, Response<EmployeeAPIContainer> response) {
                 if (response.isSuccessful()) {
+                    Ded dead = response.body().getDed();
+                    String pic = response.body().getPictureUrl();
+                    employeeIdTextView.setText(dead.getCommonName() +"  "+  dead.getJobCode());
+                    Picasso.with(ClockOptionsActivity.this).load(pic).resize(250,250).into(employeePic);
                     getPunchesID(employee);
                     System.out.println("Response Successful");
                     // do things populate employee name and picture
