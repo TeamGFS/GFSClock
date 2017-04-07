@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">GFS Time Clock</string>
+    <string name="admin_app_name">GFS Admin Opciones</string>
+    <string name="admin_pin">Introduzca El Pin</string>
+    <string name="break_in_button">Final De Salto De F6</string>
+    <string name="break_out_button">Empezar A Romper F2</string>
+    <string name="change_job_button">Cambiar De Trabajo F4</string>
+    <string name="clock_id">Reloj de ID</string>
+    <string name="clock_in_button">El Día De Inicio Del F1</string>
+    <string name="clock_out_button">Final Del Día F5</string>
+    <string name="enter_id">Introduzca la ID</string>
+    <string name="id_empty">ID de Vacíos</string>
+    <string name="id_empty_message">ID debe tener un valor</string>
+    <string name="id_entry">ID de entrada</string>
+    <string name="incorrect_pin">PIN incorrecto, inténtelo de nuevo</string>
+    <string name="incorrect_pin_message">PIN incorrecto por favor, inténtelo de nuevo.</string>
+    <string name="incorrect_pin_title">PIN incorrecto</string>
+    <string name="lunch_in_button">Final Del Almuerzo F7</string>
+    <string name="lunch_out_button">Iniciar El Almuerzo</string>
+    <string name="manual_input">Manual De Entrada</string>
+    <string name="password">Contraseña</string>
+    <string name="punch_history">Golpe Historia</string>
+    <string name="punch_history_button">Golpe Historia</string>
+    <string name="save_button">Cambiar De Trabajo</string>
+    <string name="scan_badge">Exploración De La Insignia</string>
+    <string name="server_address">la dirección del servidor</string>
+    <string name="submit">enviar</string>
+    <string name="user_name">Nombre De Usuario</string>
+</resources>

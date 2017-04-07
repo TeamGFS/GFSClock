@@ -1,19 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">GFS Time Clock</string>
-    <string name="break_in_button">Roder</string>
-    <string name="break_out_button">Éclater</string>
-    <string name="change_job_button">Changer de travail</string>
-    <string name="clock_in_button">Horloge dans</string>
+    <string name="break_in_button">Roder F6</string>
+    <string name="break_out_button">Éclater F2</string>
+    <string name="change_job_button">Changer De Travail F4</string>
+    <string name="clock_in_button">Horloge Dans F1</string>
     <string name="clock_out_button">Réveil</string>
-    <string name="lunch_in_button">Déjeuner dans</string>
-    <string name="lunch_out_button">Déjeuner</string>
+    <string name="lunch_in_button">Déjeuner Dans F7</string>
+    <string name="lunch_out_button">Déjeuner F3</string>
     <string name="punch_history_button">Historique des perforations</string>
     <string name="scan_badge">Badge de balayage</string>
-    <string name="password">Password</string>
     <string name="server_address">server address</string>
-    <string name="admin_pin">Enter PIN</string>
-    <string name="submit">submit</string>
-    <string name="manual_input">Manual input</string>
-    <string name="enter_id">Enter ID</string>
+    <string name="admin_pin">Entrez Le PIN</string>
+    <string name="submit">soumettre</string>
+    <string name="enter_id">Entrer ID</string>
+    <string name="admin_app_name"></string>
+    <string name="incorrect_pin_message">Code PIN Incorrect, veuillez réessayer.</string>
+    <string name="incorrect_pin_title">Code PIN Incorrect</string>
+    <string name="manual_input">La Saisie Manuelle Des Données</string>
+    <string name="password">Mot de passe</string>
+    <string name="punch_history">Punch De L\'Histoire</string>
+    <string name="save_button">Changer De Travail</string>
+    <string name="user_name">Nom d\'utilisateur</string>
+    <string name="clock_id">Horloge ID</string>
+    <string name="id_empty">ID Vide</string>
+    <string name="id_empty_message">ID doit avoir une valeur</string>
+    <string name="id_entry">Entrée de l\'ID</string>
+    <string name="incorrect_pin">PIN erroné, réessayez</string>
 </resources>

@@ -4,8 +4,8 @@
     <string name="scan_badge">Scan badge</string>
     <string name="clock_in_button">Start day F1</string>
     <string name="clock_out_button">End day F5</string>
-    <string name="break_in_button">End break F6</string>
-    <string name="break_out_button">Start break F2</string>
+    <string name="break_in_button">End Break F6</string>
+    <string name="break_out_button">Start Break F2</string>
     <string name="lunch_in_button">End lunch F7</string>
     <string name="lunch_out_button">Start lunch F3</string>
     <string name="punch_history">Punch history</string>
@@ -23,9 +23,11 @@
     <string name="incorrect_pin_message">Incorrect PIN please try again.</string>
 
     <string name="submit">submit</string>
-    <string name="id_entry">ID entry</string>
     <string name="enter_id">Enter ID</string>
     <string name="id_empty">ID empty</string>
     <string name="id_empty_message">ID must have a value</string>
+    <string name="manual_input">Manual Input</string>
+    <string name="punch_history_button">Punch History</string>
+    <string name="id_entry">ID Entry</string>
 
 </resources>
