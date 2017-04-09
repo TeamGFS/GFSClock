@@ -83,6 +83,7 @@ public class ClockOptionsActivity extends AppCompatActivity {
             public void onResponse(Call<List<PunchModel>> call, Response<List<PunchModel>> response) {
                 Log.d(TAG, "response worked!" + response.toString());
                 punches = response.body();
+                setValidation();
                 // TODO: Disable and enable punches as needed; may need another method
             }
 
@@ -190,13 +191,65 @@ public class ClockOptionsActivity extends AppCompatActivity {
     public void setValidation(){
         PunchModel latest = punches.get(punches.size() - 1);
         String lastPunch = latest.getDocket();
-        // bind buttons
-//    Button clockinButton = (Button) findViewById(R.id.ClockInButton);
-//    Button clockOutButton = (Button) findViewById(R.id.ClockOutButton);
-//    Button breakInButton = (Button) findViewById(R.id.BreakInButton);
-//    Button breakOutButton = (Button) findViewById(R.id.BreakOutButton);
-//    Button lunchInButton = (Button) findViewById(R.id.LunchInButton);
-//    Button lunchOutButton = (Button) findViewById(R.id.LunchOutButton);
+
+        Button clockinButton = (Button) findViewById(R.id.ClockInButton);
+        Button clockOutButton = (Button) findViewById(R.id.ClockOutButton);
+        Button breakInButton = (Button) findViewById(R.id.BreakInButton);
+        Button breakOutButton = (Button) findViewById(R.id.BreakOutButton);
+        Button lunchInButton = (Button) findViewById(R.id.LunchInButton);
+        Button lunchOutButton = (Button) findViewById(R.id.LunchOutButton);
+
+        switch(lastPunch){
+            case "F1":
+                // the most recent punch was start day
+                clockinButton.setEnabled(false);
+                clockOutButton.setEnabled(true);
+                breakInButton.setEnabled(false);
+                breakOutButton.setEnabled(true);
+                lunchInButton.setEnabled(false);
+                lunchOutButton.setEnabled(true);
+                break;
+            case "F2":
+                clockinButton.setEnabled(false);
+                clockOutButton.setEnabled(false);
+                breakInButton.setEnabled(true);
+                breakOutButton.setEnabled(false);
+                lunchInButton.setEnabled(false);
+                lunchOutButton.setEnabled(false);
+                break;
+            case "F3":
+                clockinButton.setEnabled(false);
+                clockOutButton.setEnabled(false);
+                breakInButton.setEnabled(false);
+                breakOutButton.setEnabled(false);
+                lunchInButton.setEnabled(true);
+                lunchOutButton.setEnabled(false);
+                break;
+            case "F5":
+                clockinButton.setEnabled(true);
+                clockOutButton.setEnabled(false);
+                breakInButton.setEnabled(false);
+                breakOutButton.setEnabled(false);
+                lunchInButton.setEnabled(false);
+                lunchOutButton.setEnabled(false);
+                break;
+            case "F6":
+                clockinButton.setEnabled(false);
+                clockOutButton.setEnabled(true);
+                breakInButton.setEnabled(false);
+                breakOutButton.setEnabled(true);
+                lunchInButton.setEnabled(false);
+                lunchOutButton.setEnabled(true);
+                break;
+            case "F7":
+                clockinButton.setEnabled(false);
+                clockOutButton.setEnabled(true);
+                breakInButton.setEnabled(false);
+                breakOutButton.setEnabled(true);
+                lunchInButton.setEnabled(false);
+                lunchOutButton.setEnabled(true);
+                break;
+        }
     }
 
     /**
