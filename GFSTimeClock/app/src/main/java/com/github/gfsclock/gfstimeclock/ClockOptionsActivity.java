@@ -303,6 +303,10 @@ public class ClockOptionsActivity extends AppCompatActivity {
         submitPunches(employeeID, "F4", jobCode);
     }
 
+    public void signOut(View view){
+        backToScanBadge();
+    }
+
     /**
      * Method called after any activity to return to ScanBadgeActivity activity.
      */
