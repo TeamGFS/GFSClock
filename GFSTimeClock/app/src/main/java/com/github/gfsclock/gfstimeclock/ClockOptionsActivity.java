@@ -112,7 +112,7 @@ public class ClockOptionsActivity extends AppCompatActivity {
         String password = sPref.getString("password", "");
         PunchQueryService punchClient = APIServiceGenerator.createService(PunchQueryService.class, username, password);
 
-        PunchModel punch = new PunchModel();
+        final PunchModel punch = new PunchModel();
         punch.setDocket(docket);
         punch.setpayroll(id);
         punch.setTimestamp(new Date());
@@ -189,6 +189,7 @@ public class ClockOptionsActivity extends AppCompatActivity {
 
 
     public void setValidation(){
+        
         PunchModel latest = punches.get(punches.size() - 1);
         String lastPunch = latest.getDocket();
 
