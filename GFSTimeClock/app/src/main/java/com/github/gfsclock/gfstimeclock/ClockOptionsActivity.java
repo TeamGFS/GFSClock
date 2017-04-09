@@ -19,6 +19,7 @@ import com.squareup.picasso.Picasso;
 import java.util.Date;
 import java.util.List;
 
+import io.realm.Realm;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,6 +34,7 @@ public class ClockOptionsActivity extends AppCompatActivity {
     private TextView employeeIdTextView;
     private ImageView employeePic;
     private static final String TAG = "ClockOptionsActivity";
+    private Realm realm;
 
 
     /**
@@ -76,11 +78,13 @@ public class ClockOptionsActivity extends AppCompatActivity {
             public void onResponse(Call<List<PunchModel>> call, Response<List<PunchModel>> response) {
                 Log.d(TAG, "response worked!" + response.toString());
                 punches = response.body();
+                // TODO: Disable and enable punches as needed; may need another method
             }
 
             @Override
             public void onFailure(Call<List<PunchModel>> call, Throwable t) {
                 Log.d(TAG, "no punches" + t.toString());
+                // No connection, no validation
             }
         });
     }
@@ -118,6 +122,14 @@ public class ClockOptionsActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 Log.d(TAG, "no punches" + t.toString());
+                // TODO: Cache Punches
+                realm = Realm.getDefaultInstance();
+                realm.beginTransaction();
+
+                final PunchModel cachedPunch = realm.copyToRealm(punch);
+
+                realm.commitTransaction();
+                realm.close();
             }
         });
     }
@@ -153,6 +165,8 @@ public class ClockOptionsActivity extends AppCompatActivity {
 
             public void onFailure(Call<EmployeeAPIContainer> call, Throwable t) {
                 Log.d(TAG, t.getMessage());
+                // At this point, we can't connect to the employee data server to verify
+                // TODO: Don't validate, present entire view ready to use
             }
         });
     }
