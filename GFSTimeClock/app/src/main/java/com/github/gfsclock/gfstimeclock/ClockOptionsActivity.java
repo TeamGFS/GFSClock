@@ -8,11 +8,15 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.InputType;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -35,6 +39,7 @@ public class ClockOptionsActivity extends AppCompatActivity {
     private ImageView employeePic;
     private static final String TAG = "ClockOptionsActivity";
     private Realm realm;
+    private String jobCode;
 
 
     /**
@@ -95,11 +100,11 @@ public class ClockOptionsActivity extends AppCompatActivity {
      * @param view
      */
     public void clockIn(View view) {
-        submitPunches(employeeID, "F1");
+        submitPunches(employeeID, "F1", null);
         backToScanBadge();
     }
 
-    private void submitPunches(int id, String docket) {
+    private void submitPunches(int id, String docket, String jobCode) {
 
         SharedPreferences sPref = PreferenceManager.getDefaultSharedPreferences(Startup.getContext());
         String username = sPref.getString("username", "");
@@ -110,7 +115,9 @@ public class ClockOptionsActivity extends AppCompatActivity {
         punch.setDocket(docket);
         punch.setpayroll(id);
         punch.setTimestamp(new Date());
-
+        if(docket == "F4"){
+            punch.setJobCode(jobCode);
+        }
         Call<ResponseBody> call = punchClient.submitPunchesByDate(punch);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
@@ -224,7 +231,7 @@ public class ClockOptionsActivity extends AppCompatActivity {
      * @param view
      */
     public void breakOut(View view) {
-        submitPunches(employeeID, "F2");
+        submitPunches(employeeID, "F2", null);
         backToScanBadge();
     }
 
@@ -234,7 +241,7 @@ public class ClockOptionsActivity extends AppCompatActivity {
      * @param view
      */
     public void lunchOut(View view) {
-        submitPunches(employeeID, "F3");
+        submitPunches(employeeID, "F3", null);
         backToScanBadge();
     }
 
@@ -244,7 +251,7 @@ public class ClockOptionsActivity extends AppCompatActivity {
      * @param view
      */
     public void clockOut(View view) {
-        submitPunches(employeeID, "F5");
+        submitPunches(employeeID, "F5", null);
         backToScanBadge();
     }
 
@@ -254,7 +261,7 @@ public class ClockOptionsActivity extends AppCompatActivity {
      * @param view
      */
     public void breakIn(View view) {
-        submitPunches(employeeID, "F6");
+        submitPunches(employeeID, "F6", null);
         backToScanBadge();
     }
 
@@ -264,7 +271,7 @@ public class ClockOptionsActivity extends AppCompatActivity {
      * @param view
      */
     public void lunchIn(View view) {
-        submitPunches(employeeID, "F7");
+        submitPunches(employeeID, "F7", null);
         backToScanBadge();
     }
 
@@ -274,8 +281,26 @@ public class ClockOptionsActivity extends AppCompatActivity {
      * @param view
      */
     public void changeJob(View view) {
-        backToScanBadge();
-        // TODO disabled for now need to get clarification on API functionality
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.enter_job_code);
+        final EditText input = new EditText(this);
+        input.setInputType(InputType.TYPE_CLASS_NUMBER);
+        builder.setView(input);
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                jobCode = input.getText().toString();
+                Toast.makeText(ClockOptionsActivity.this, R.string.enter_job_code + " " + jobCode,
+                        Toast.LENGTH_LONG).show();
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        submitPunches(employeeID, "F4", jobCode);
     }
 
     /**
