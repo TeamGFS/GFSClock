@@ -44,6 +44,7 @@ public class ClockOptionsActivity extends AppCompatActivity {
     private static final String TAG = "ClockOptionsActivity";
     private Realm realm;
     private String jobCode;
+    private PunchSync punchSync = new PunchSync();
 
 
     /**
@@ -69,6 +70,12 @@ public class ClockOptionsActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onDestroy() {
+        punchSync.cancel(true);
+        super.onDestroy();
+    }
+
 
     /**
      * Obtain initial punch history of a given employee (id).
@@ -88,6 +95,7 @@ public class ClockOptionsActivity extends AppCompatActivity {
                 Log.d(TAG, "response worked!" + response.toString());
                 punches = response.body();
                 setValidation();
+                punchSync.execute();
                 // TODO: Disable and enable punches as needed; may need another method
             }
 
@@ -401,6 +409,8 @@ public class ClockOptionsActivity extends AppCompatActivity {
             Collections.reverse(invertedOutput);
 
             for(PunchModel cachedPunch : invertedOutput) {
+                if(isCancelled())
+                    break;
                 SharedPreferences sPref = PreferenceManager.getDefaultSharedPreferences(Startup.getContext());
                 String username = sPref.getString("username", "");
                 String password = sPref.getString("password", "");
