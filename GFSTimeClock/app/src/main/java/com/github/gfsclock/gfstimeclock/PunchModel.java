@@ -17,6 +17,7 @@ public class PunchModel extends RealmObject{
     private String payroll;
     private String docket;
     private String jobCode;
+    private String department;
     private Date timestamp;
 
     public String getpayroll() {
@@ -34,6 +35,10 @@ public class PunchModel extends RealmObject{
     public void setDocket(String docket) {
         this.docket = docket;
     }
+
+    public String getDepartment() { return department; }
+
+    public void setDepartment(String department) { this.department = department; }
 
     public String getJobCode() {
         return jobCode;
