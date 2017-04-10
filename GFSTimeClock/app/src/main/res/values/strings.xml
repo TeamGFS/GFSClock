@@ -28,6 +28,7 @@
     <string name="enter_id">Enter ID</string>
     <string name="id_empty">ID Empty</string>
     <string name="id_empty_message">ID must have a value.</string>
-    <string name="config_error">The application needs to be configured, please close the application and open GFS Admin to set configuration information.</string>
+    <string name="config_error">The application needs to be configured, please close the application (swipe the app away from the recent apps menu) and open GFS Admin to set configuration information.</string>
+    <string name="enter_job_code">Job Code Change</string>
 
 </resources>

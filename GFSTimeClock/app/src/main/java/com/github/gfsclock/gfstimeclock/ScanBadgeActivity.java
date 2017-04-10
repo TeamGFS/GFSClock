@@ -35,7 +35,6 @@ public class ScanBadgeActivity extends AppCompatActivity {
             Button manualInput = (Button) findViewById(R.id.manual);
             scanBadge.setEnabled(false);
             manualInput.setEnabled(false);
-            // TODO make a dialog to describe how to set config
             AlertDialog.Builder builder = new AlertDialog.Builder(ScanBadgeActivity.this);
             builder.setTitle("Configuration error");
             builder.setMessage(getString(R.string.config_error));
