@@ -196,7 +196,7 @@ public class ClockOptionsActivity extends AppCompatActivity {
         Button lunchInButton = (Button) findViewById(R.id.LunchInButton);
         Button lunchOutButton = (Button) findViewById(R.id.LunchOutButton);
 
-        PunchModel latest = punches.get(punches.size() - 1);
+
         if (punches.size() == 0) {
             // if not punches then only set Clock In to enabled.
             clockinButton.setEnabled(true);
@@ -207,6 +207,7 @@ public class ClockOptionsActivity extends AppCompatActivity {
             lunchOutButton.setEnabled(false);
             return;
         } else {
+            PunchModel latest = punches.get(punches.size() - 1);
             String lastPunch = latest.getDocket();
 
             switch (lastPunch) {
