@@ -4,6 +4,7 @@ package com.github.gfsclock.gfstimeclock;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
@@ -20,10 +21,13 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
 import io.realm.Realm;
+import io.realm.RealmResults;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -379,5 +383,51 @@ public class ClockOptionsActivity extends AppCompatActivity {
     public void backToScanBadge() {
         Intent backToScanBadge = new Intent(ClockOptionsActivity.this, ScanBadgeActivity.class);
         ClockOptionsActivity.this.startActivity(backToScanBadge);
+    }
+
+    private class PunchSync extends AsyncTask {
+        @Override
+        protected Object doInBackground(Object[] params) {
+
+            // Get Cache Contents
+            realm = Realm.getDefaultInstance();
+            RealmResults<PunchModel> results = realm.where(PunchModel.class).findAll();
+            List<PunchModel> output = new ArrayList<>();
+            output.addAll(realm.copyFromRealm(results));
+            realm.close();
+
+            // invert the list
+            List<PunchModel> invertedOutput = output.subList(0, output.size());
+            Collections.reverse(invertedOutput);
+
+            for(PunchModel cachedPunch : invertedOutput) {
+                SharedPreferences sPref = PreferenceManager.getDefaultSharedPreferences(Startup.getContext());
+                String username = sPref.getString("username", "");
+                String password = sPref.getString("password", "");
+                PunchQueryService punchClient = APIServiceGenerator.createService(PunchQueryService.class, username, password);
+                final PunchModel pAttempt = cachedPunch;
+                final List<PunchModel> index = output;
+                Call<ResponseBody> call = punchClient.submitPunchesByDate(pAttempt);
+                call.enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        // Remove Punch
+                        realm = Realm.getDefaultInstance();
+                        realm.beginTransaction();
+                        RealmResults<PunchModel> vList = realm.where(PunchModel.class).findAll();
+                        vList.deleteFromRealm(vList.indexOf(pAttempt));
+                        realm.commitTransaction();
+                        realm.close();
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                    }
+                });
+            }
+
+            return null;
+        }
     }
 }
