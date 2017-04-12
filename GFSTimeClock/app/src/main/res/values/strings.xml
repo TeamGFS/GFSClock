@@ -23,6 +23,7 @@
     <string name="incorrect_pin_title">Incorrect PIN</string>
     <string name="incorrect_pin_message">Incorrect PIN, please try again.</string>
 
+    <string name="sync">Sync</string>
     <string name="submit">Submit</string>
     <string name="id_entry">ID Entry</string>
     <string name="enter_id">Enter ID</string>
