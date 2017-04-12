@@ -44,7 +44,7 @@ public class ClockOptionsActivity extends AppCompatActivity {
     private static final String TAG = "ClockOptionsActivity";
     private Realm realm;
     private String jobCode;
-    private PunchSync punchSync = new PunchSync();
+    //private PunchSync punchSync = new PunchSync();
 
 
     /**
@@ -72,7 +72,7 @@ public class ClockOptionsActivity extends AppCompatActivity {
 
     @Override
     public void onDestroy() {
-        punchSync.cancel(true);
+        //punchSync.cancel(true);
         super.onDestroy();
     }
 
@@ -94,9 +94,9 @@ public class ClockOptionsActivity extends AppCompatActivity {
             public void onResponse(Call<List<PunchModel>> call, Response<List<PunchModel>> response) {
                 Log.d(TAG, "response worked!" + response.toString());
                 punches = response.body();
-                setValidation();
-                punchSync.execute();
-                // TODO: Disable and enable punches as needed; may need another method
+                //setValidation();
+                //punchSync.execute();
+
             }
 
             @Override

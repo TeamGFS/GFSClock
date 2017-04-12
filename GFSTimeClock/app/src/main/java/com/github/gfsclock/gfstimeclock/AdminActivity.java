@@ -12,6 +12,17 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import io.realm.Realm;
+import io.realm.RealmResults;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class AdminActivity extends AppCompatActivity {
 
     private String serverAddress;
@@ -25,6 +36,8 @@ public class AdminActivity extends AppCompatActivity {
     private EditText usernameField;
     private EditText passwordField;
     private EditText clockIdField;
+
+    private Realm realm;
 
     //SharedPreferences.Editor settingEditor = settingStore.edit();
 
@@ -107,5 +120,45 @@ public class AdminActivity extends AppCompatActivity {
     public void toScanBadge(View view) {
         Intent next = new Intent (AdminActivity.this, ScanBadgeActivity.class);
         startActivity (next);
+    }
+
+    public void apiSync(View view) {
+        // Get Cache Contents
+        realm = Realm.getDefaultInstance();
+        RealmResults<PunchModel> results = realm.where(PunchModel.class).findAll();
+        List<PunchModel> output = new ArrayList<>();
+        output.addAll(realm.copyFromRealm(results));
+        realm.close();
+
+        // invert the list
+        List<PunchModel> invertedOutput = output.subList(0, output.size());
+        Collections.reverse(invertedOutput);
+
+        for(PunchModel cachedPunch : invertedOutput) {
+            SharedPreferences sPref = PreferenceManager.getDefaultSharedPreferences(Startup.getContext());
+            String username = sPref.getString("username", "");
+            String password = sPref.getString("password", "");
+            PunchQueryService punchClient = APIServiceGenerator.createService(PunchQueryService.class, username, password);
+            final PunchModel pAttempt = cachedPunch;
+            final List<PunchModel> index = output;
+            Call<ResponseBody> call = punchClient.submitPunchesByDate(pAttempt);
+            call.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    // Remove Punch
+                    realm = Realm.getDefaultInstance();
+                    realm.beginTransaction();
+                    RealmResults<PunchModel> vList = realm.where(PunchModel.class).findAll();
+                    vList.deleteFromRealm(vList.indexOf(pAttempt));
+                    realm.commitTransaction();
+                    realm.close();
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                }
+            });
+        }
     }
 }
