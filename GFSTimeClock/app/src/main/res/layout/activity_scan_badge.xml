@@ -56,6 +56,7 @@
         android:onClick="manual"
         android:text="@string/id_entry"
         android:textSize="30sp"
+        android:typeface="monospace"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

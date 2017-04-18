@@ -15,6 +15,7 @@ import android.widget.Toast;
 public class ManualInputActivity extends AppCompatActivity {
 
     private int barcode;
+    private String barcodeStr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +36,8 @@ public class ManualInputActivity extends AppCompatActivity {
                 if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
                         (keyCode == KeyEvent.KEYCODE_ENTER)) {
                     // Perform action on key press
-                    barcode = Integer.parseInt(id);
+                    barcodeStr = id.substring(1);
+                    barcode = Integer.parseInt(barcodeStr);
                     Intent optionsScreen = new Intent(ManualInputActivity.this, ClockOptionsActivity.class);
                     optionsScreen.putExtra("barcode", barcode);
                     ManualInputActivity.this.startActivity(optionsScreen);
@@ -65,6 +67,7 @@ public class ManualInputActivity extends AppCompatActivity {
                     AlertDialog dialog = builder.create();
                     dialog.show();
                 } else {
+
                     barcode = Integer.parseInt(id);
                     Intent optionsScreen = new Intent(ManualInputActivity.this, ClockOptionsActivity.class);
                     optionsScreen.putExtra("barcode", barcode);

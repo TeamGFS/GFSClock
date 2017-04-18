@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">GFS Time Clock</string>
     <string name="admin_app_name">GFS Admin Options</string>
-    <string name="scan_badge">Scan Badge</string>
+    <string name="scan_badge">Scan Camera</string>
     <string name="clock_in_button">Start Day F1</string>
     <string name="clock_out_button">End Day F5</string>
     <string name="break_in_button">End Break F6</string>
@@ -25,7 +25,7 @@
 
     <string name="sync">Sync</string>
     <string name="submit">Submit</string>
-    <string name="id_entry">ID Entry</string>
+    <string name="id_entry">Swipe Badge</string>
     <string name="enter_id">Enter ID</string>
     <string name="id_empty">ID Empty</string>
     <string name="id_empty_message">ID must have a value.</string>
